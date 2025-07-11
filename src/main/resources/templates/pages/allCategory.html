@@ -1,201 +1,134 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Categories - E-commerce</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Inter Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Base body styles for font and background */
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f3f4f6;
-      /* Light gray background */
-      color: #374151;
-      /* Default text color */
-    }
-
-    /*
-            Custom styles for table elements and status badges.
-            These styles are kept here because they involve:
-            - Specific pseudo-selectors (like :last-child)
-            - Properties not easily expressible with single Tailwind classes (e.g., vertical-align)
-            - Semantic styling for status states that group multiple properties.
-        */
-    .table-row:last-child .table-cell {
-      border-bottom: none;
-      /* No border for the last row of the table */
-    }
-
-    .table-cell {
-      vertical-align: middle;
-      /* Ensure content in table cells is vertically centered */
-    }
-
-    .status-active {
-      background-color: #d1fae5;
-      /* Light green background for active status */
-      color: #065f46;
-      /* Dark green text for active status */
-    }
-
-    .status-inactive {
-      background-color: #fee2e2;
-      /* Light red background for inactive status */
-      color: #991b1b;
-      /* Dark red text for inactive status */
-    }
-  </style>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" th:href="@{../vendors/feather/feather.css}">
+  <link rel="stylesheet" th:href="@{../vendors/ti-icons/css/themify-icons.css}">
+  <link rel="stylesheet" th:href="@{../vendors/css/vendor.bundle.base.css}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" th:href="@{../vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+  <link rel="stylesheet" th:href="@{../vendors/ti-icons/css/themify-icons.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{../js/select.dataTables.min.css}">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" th:href="@{../css/vertical-layout-light/style.css}">
+  <!-- endinject -->
+  <link rel="shortcut icon" th:href="@{../images/favicon.png}" />
 </head>
 
 <body>
-
-  <!-- Admin Category Management Section -->
-  <section class="py-12 px-4">
-    <div class="container mx-auto">
-      <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-        <div class="p-6 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Manage Categories</h2>
-          <div
-            class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
-            <!-- Search/Filter Input -->
-            <input type="text" placeholder="Search categories..."
-              class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 w-full sm:w-64">
-            <!-- Add New Category Button -->
-            <a href="/admin/categories/add"
-              class="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-lg shadow-sm text-gray-900 bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 w-full sm:w-auto">
-              <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                aria-hidden="true">
-                <path fill-rule="evenodd"
-                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                  clip-rule="evenodd" />
-              </svg>
-              Add New Category
-            </a>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <div th:replace="fragments/Navbar :: Navbar"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close ti-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
           </div>
-        </div>
-
-        <!-- Category Table -->
-        <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col"
-                  class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
-                <th scope="col"
-                  class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Image
-                </th>
-                <th scope="col"
-                  class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Category Name</th>
-                <th scope="col"
-                  class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Description</th>
-                <th scope="col"
-                  class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status
-                </th>
-                <th scope="col"
-                  class="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <!--
-                                Thymeleaf loop to iterate over categories.
-                                Replace 'categories' with the actual model attribute name from your Spring Boot controller.
-                                Each 'tr' represents a category row.
-                            -->
-              <tr th:each="category : ${categories}" class="table-row">
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                  th:text="${category.id}">1
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <img th:src="${category.imageUrl}" alt="Category Thumbnail" class="w-12 h-12 rounded-lg object-cover"
-                    onerror="this.onerror=null;this.src='https://placehold.co/48x48/e5e7eb/6b7280?text=NoImg';" />
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-700" th:text="${category.name}">
-                  Electronics
-                </td>
-                <td class="table-cell px-6 py-4 text-sm text-gray-700" th:text="${category.description}">
-                  A wide range of electronic gadgets and devices.
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <span th:classappend="${category.status == 'active' ? 'status-active' : 'status-inactive'}"
-                    th:text="${category.status == 'active' ? 'Active' : 'Inactive'}"
-                    class="px-3 py-1 rounded-full text-xs font-medium">Active</span>
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                  <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
-                    class="text-blue-600 hover:text-blue-800 mr-3">Edit</a>
-                  <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}"
-                    class="text-red-600 hover:text-red-800"
-                    onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
-                </td>
-              </tr>
-              <!-- Example Static Row (will be replaced by Thymeleaf data) -->
-              <tr class="table-row">
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <img src="https://placehold.co/48x48/facc15/1f2937?text=Apparel" alt="Category Thumbnail"
-                    class="w-12 h-12 rounded-lg object-cover">
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-700">Apparel</td>
-                <td class="table-cell px-6 py-4 text-sm text-gray-700">
-                  Fashionable clothing for all ages and genders.
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <span class="status-active px-3 py-1 rounded-full text-xs font-medium">Active</span>
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                  <a href="#" class="text-blue-600 hover:text-blue-800 mr-3">Edit</a>
-                  <a href="#" class="text-red-600 hover:text-red-800"
-                    onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
-                </td>
-              </tr>
-              <tr class="table-row">
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <img src="https://placehold.co/48x48/facc15/1f2937?text=Books" alt="Category Thumbnail"
-                    class="w-12 h-12 rounded-lg object-cover">
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-700">Books</td>
-                <td class="table-cell px-6 py-4 text-sm text-gray-700">
-                  A vast collection of books from various genres.
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap">
-                  <span class="status-inactive px-3 py-1 rounded-full text-xs font-medium">Inactive</span>
-                </td>
-                <td class="table-cell px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                  <a href="#" class="text-blue-600 hover:text-blue-800 mr-3">Edit</a>
-                  <a href="#" class="text-red-600 hover:text-red-800"
-                    onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
-                </td>
-              </tr>
-              <!-- End Example Static Row -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pagination (Conceptual) -->
-        <div class="p-6 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
-          <span>Showing 1 to 10 of 50 entries</span>
-          <div class="flex space-x-2">
-            <a href="#" class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100">Previous</a>
-            <a href="#"
-              class="px-3 py-1 border border-gray-300 rounded-lg bg-yellow-400 text-gray-900 hover:bg-yellow-500">1</a>
-            <a href="#" class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100">2</a>
-            <a href="#" class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100">3</a>
-            <a href="#" class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100">Next</a>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
           </div>
         </div>
       </div>
+      <div th:replace="fragments/RightSidebar :: RightSidebar"></div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <div th:replace="fragments/Sidebar :: sidebar"></div>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+           <div class="col-12 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Bordered table</h4>
+                  <p class="card-description">
+                    Add class <code>.table-bordered</code>
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            Serial No
+                          </th>
+                          <th>
+                           Category Name
+                          </th>
+                          <th>
+                            Action
+                          </th> 
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            Herman Beck
+                          </td>                     
+                          <td>
+                            <button class="btn btn-outline-primary">Edit</button>
+                            <button class="btn btn-outline-danger">Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>         
+        </div>
+  
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021. Premium <a
+                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.
+              All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                class="ti-heart text-danger ml-1"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
     </div>
-  </section>
-
+    <!-- page-body-wrapper ends -->
+  </div>
+  <script th:src="@{../vendors/js/vendor.bundle.base.js}"></script>
+  <script th:src="@{../vendors/chart.js/Chart.min.js}"></script>
+  <script th:src="@{../js/off-canvas.js}"></script>
+  <script th:src="@{../js/hoverable-collapse.js}"></script>
+  <script th:src="@{../js/template.js}"></script>
+  <script th:src="@{../js/settings.js}"></script>
+  <script th:src="@{../js/todolist.js}"></script>
+  <script th:src="@{../js/dashboard.js}"></script>
+  <script th:src="@{../js/Chart.roundedBarCharts.js}"></script>
 </body>
 
 </html>
