@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
   <!-- Required meta tags -->
@@ -20,6 +20,9 @@
   <link rel="stylesheet" th:href="@{../css/vertical-layout-light/style.css}">
   <!-- endinject -->
   <link rel="shortcut icon" th:href="@{../images/favicon.png}" />
+  <!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 </head>
 
 <body>
@@ -63,7 +66,7 @@
               <div class="card mt-4">
   <div class="card-body">
     <h4 class="card-title">Add Category</h4>
-    <form class="forms-sample" th:action="@{/categories/save}" method="post">
+   <form class="forms-sample" th:action="@{/categories/save}" method="post">
       <div class="form-group">
         <label for="name">Category Name</label>
         <input type="text" name="name" class="form-control" id="name" placeholder="Enter category name" required>
@@ -102,6 +105,25 @@
   <script th:src="@{../js/todolist.js}"></script>
   <script th:src="@{../js/dashboard.js}"></script>
   <script th:src="@{../js/Chart.roundedBarCharts.js}"></script>
+  <!-- jQuery (already assumed included via vendor) -->
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script th:inline="javascript">
+ 
+    
+    
+
+  if (successMsg !== null) {
+    toastr.success(successMsg);
+  }
+
+  if (errorMsg !== null) {
+    toastr.error(errorMsg);
+  }
+
+</script>
+
 </body>
 
 </html>
+

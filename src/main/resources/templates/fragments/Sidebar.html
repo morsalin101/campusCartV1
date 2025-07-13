@@ -20,24 +20,29 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" th:href="@{/dashboard/add-category}">Add Category</a></li>
-              <li class="nav-item"> <a class="nav-link" th:href="@{/dashboard/all-category}">All Categories</a></li>
+              <li class="nav-item"> <a class="nav-link" th:href="@{/categories/add}">Add Category</a></li>
+              <li class="nav-item"> <a class="nav-link" th:href="@{/categories/all}">All Categories</a></li>
             </ul>
           </div>
         </li>
-          <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="product" aria-expanded="false" aria-controls="product">
-            <i class="icon-layout menu-icon"></i>
-            <span class="menu-title">Product</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="product">
-            <ul class="nav flex-column sub-menu">              
-              <li class="nav-item"><a class="nav-link" th:href="@{/add-product}">Add Product</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">All Products</a></li>             
-            </ul>
-          </div>
-        </li>
+
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Products</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" th:href="@{/add-product}">Add Product</a></li>
+              </ul>
+            </div>
+              <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">All Products</a></li>
+              </ul>
+            </div>
+          </li>
       </ul>
     </nav>
 
