@@ -12,19 +12,23 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    // Show Add Category Page
-    @GetMapping("/add")
+    @GetMapping("/categories")
     public String addCategoryPage() {
-        return "pages/addCategory";
+        return "dashboard/categories";
+    }
+
+   @GetMapping("/dashboard/add_category")
+    public String showAddCategoryPage(Model model) {
+        model.addAttribute("categoryDto", new CategoryDto());
+        return "dashboard/add_category";
     }
 
     // Save New Category
-    @PostMapping("/save")
+    @PostMapping("categories/save")
     public String saveCategory(@ModelAttribute CategoryDto categoryDto,
                                RedirectAttributes redirectAttributes) {
         try {
@@ -33,11 +37,11 @@ public class CategoryController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Something went wrong.");
         }
-        return "redirect:/categories/add";
+        return "redirect:dashboard/add_category";
     }
 
     // Show All Categories Page
-   @GetMapping("/all")
+   @GetMapping("categories/all")
 public String showAllCategories(Model model) {
     List<CategoryDto> categories = categoryService.getAllCategories();
 
