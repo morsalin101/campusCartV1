@@ -40,30 +40,33 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                //.csrf(csrf -> csrf.disable())  // Disable CSRF for testing
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/images/**", "/css/**", "/js/**").permitAll() // Updated : This was causing image not rendering to browser
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/super-admin/**").hasRole("SUPER_ADMIN")
-                        .requestMatchers("/user/**").hasRole("USER")
-
-                        //						.requestMatchers("/**", "/login", "/register").permitAll()
-                        .requestMatchers("/login", "/register").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/dashboard/index", true)
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                );
+http
+    //.csrf(csrf -> csrf.disable())  // Optional
+    .authorizeHttpRequests(auth -> auth
+            .requestMatchers(
+                "/",                         // homepage
+                "/login", "/register",       // public auth pages
+                "/assets/**",                // ✅ assets folder (css, js, images)
+                "/static/**",                // ✅ static fallback (if accessed directly)
+                "/css/**", "/js/**", "/images/**", "/fonts/**", "/favicon.ico","/libs/**" // ✅ other static resources
+            ).permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/super-admin/**").hasRole("SUPER_ADMIN")
+            .requestMatchers("/user/**").hasRole("USER")
+            .anyRequest().authenticated()
+    )
+    .formLogin(form -> form
+            .loginPage("/login")
+            .defaultSuccessUrl("/dashboard/index", true)
+            .permitAll()
+    )
+    .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout=true")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+            .permitAll()
+    );
 
         return http.build();
     }

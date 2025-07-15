@@ -18,35 +18,35 @@ public class CampusCartApplication {
 		SpringApplication.run(CampusCartApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner dataLoader(
-			RoleRepository roleRepository,
-			UserRepository userRepository,
-			PasswordEncoder passwordEncoder
-	) {
-		return args -> {
-			// Create roles if not exist
-			Role userRole = roleRepository.findByName("ROLE_USER")
-					.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_USER")));
+	// @Bean
+	// public CommandLineRunner dataLoader(
+	// 		RoleRepository roleRepository,
+	// 		UserRepository userRepository,
+	// 		PasswordEncoder passwordEncoder
+	// ) {
+	// 	return args -> {
+	// 		// Create roles if not exist
+	// 		Role userRole = roleRepository.findByName("ROLE_USER")
+	// 				.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_USER")));
 
-			Role adminRole = roleRepository.findByName("ROLE_ADMIN")
-					.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_ADMIN")));
+	// 		Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+	// 				.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_ADMIN")));
 
-			Role superAdminRole = roleRepository.findByName("ROLE_SUPER_ADMIN")
-					.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_SUPER_ADMIN")));
+	// 		Role superAdminRole = roleRepository.findByName("ROLE_SUPER_ADMIN")
+	// 				.orElseGet(() -> roleRepository.save(new Role(null, "ROLE_SUPER_ADMIN")));
 
-			// Create users if not exist
-			if (userRepository.findByUsername("user").isEmpty()) {
-				userRepository.save(new UserModel(null, "user", passwordEncoder.encode("1234"), userRole));
-			}
+	// 		// Create users if not exist
+	// 		if (userRepository.findByUsername("user").isEmpty()) {
+	// 			userRepository.save(new UserModel(null, "user", passwordEncoder.encode("1234"), userRole));
+	// 		}
 
-			if (userRepository.findByUsername("admin").isEmpty()) {
-				userRepository.save(new UserModel(null, "admin", passwordEncoder.encode("1234"), adminRole));
-			}
+	// 		if (userRepository.findByUsername("admin").isEmpty()) {
+	// 			userRepository.save(new UserModel(null, "admin", passwordEncoder.encode("1234"), adminRole));
+	// 		}
 
-			if (userRepository.findByUsername("superadmin").isEmpty()) {
-				userRepository.save(new UserModel(null, "superadmin", passwordEncoder.encode("1234"), superAdminRole));
-			}
-		};
-	}
+	// 		if (userRepository.findByUsername("superadmin").isEmpty()) {
+	// 			userRepository.save(new UserModel(null, "superadmin", passwordEncoder.encode("1234"), superAdminRole));
+	// 		}
+	// 	};
+	// }
 }
