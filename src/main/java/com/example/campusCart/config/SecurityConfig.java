@@ -55,11 +55,11 @@ http
             .requestMatchers("/user/**").hasRole("USER")
             .anyRequest().authenticated()
     )
-    .formLogin(form -> form
+     .formLogin(form -> form
             .loginPage("/login")
             .defaultSuccessUrl("/dashboard/index", true)
             .permitAll()
-    )
+        )
     .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login?logout=true")
