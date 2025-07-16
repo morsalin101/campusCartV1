@@ -22,32 +22,33 @@ public class CategoryController {
     }
 
    @GetMapping("/dashboard/add_category")
-    public String showAddCategoryPage(Model model) {
-        model.addAttribute("categoryDto", new CategoryDto());
-        return "dashboard/add_category";
-    }
+   public String showAddCategoryPage(Model model) {
+       model.addAttribute("categoryDto", new CategoryDto());
+       return "dashboard/add_category";
+   }
 
+    
     // Save New Category
-    @PostMapping("categories/save")
-    public String saveCategory(@ModelAttribute CategoryDto categoryDto,
-                               RedirectAttributes redirectAttributes) {
-        try {
-            categoryService.saveCategory(categoryDto);
-            redirectAttributes.addFlashAttribute("success", "Category added successfully!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Something went wrong.");
-        }
-        return "redirect:dashboard/add_category";
+ @PostMapping("/categories/save")
+public String saveCategory(@ModelAttribute CategoryDto categoryDto,
+                           RedirectAttributes redirectAttributes) {
+    try {
+        categoryService.saveCategory(categoryDto);
+        redirectAttributes.addFlashAttribute("success", "Category added successfully!");
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "Something went wrong.");
     }
+    return "redirect:/categories"; //  Not /dashboard/add_category
+}
 
     // Show All Categories Page
    @GetMapping("categories/all")
-public String showAllCategories(Model model) {
-    List<CategoryDto> categories = categoryService.getAllCategories();
+   public String showAllCategories(Model model) {
+       List<CategoryDto> categories = categoryService.getAllCategories();
 
-    model.addAttribute("categories", categories);
-    return "pages/allCategory";
-}
+       model.addAttribute("categories", categories);
+       return "pages/allCategory";
+   }
 
 
     // Update Category
