@@ -16,11 +16,6 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @GetMapping("/categories")
-    public String addCategoryPage() {
-        return "dashboard/categories";
-    }
-
    @GetMapping("/dashboard/add_category")
    public String showAddCategoryPage(Model model) {
        model.addAttribute("categoryDto", new CategoryDto());
@@ -42,12 +37,12 @@ public String saveCategory(@ModelAttribute CategoryDto categoryDto,
 }
 
     // Show All Categories Page
-   @GetMapping("categories/all")
+   @GetMapping("/categories")
    public String showAllCategories(Model model) {
        List<CategoryDto> categories = categoryService.getAllCategories();
 
        model.addAttribute("categories", categories);
-       return "pages/allCategory";
+       return "dashboard/categories";
    }
 
 
@@ -61,7 +56,7 @@ public String saveCategory(@ModelAttribute CategoryDto categoryDto,
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Update failed.");
         }
-        return "redirect:/categories/all";
+        return "redirect:/categories";
     }
 
     // Delete Category
@@ -74,6 +69,6 @@ public String saveCategory(@ModelAttribute CategoryDto categoryDto,
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Delete failed.");
         }
-        return "redirect:/categories/all";
+        return "redirect:/categories"; // Redirect to categories page after deletion
     }
 }
