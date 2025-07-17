@@ -71,4 +71,4 @@ public String saveCategory(@ModelAttribute CategoryDto categoryDto,
         }
         return "redirect:/categories"; // Redirect to categories page after deletion
     }
-}
+}    

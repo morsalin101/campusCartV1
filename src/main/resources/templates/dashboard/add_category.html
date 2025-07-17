@@ -115,11 +115,18 @@
 
                         <div class="row">
 
-                           <form th:action="@{/categories/save}" method="post" th:object="${categoryDto}">
-                              <!-- Example input field -->
+                           <form th:action="@{/categories/save}" method="post" th:object="${categoryDto}"
+                              enctype="multipart/form-data">
+                              <!-- Category Name -->
                               <div class="mb-3">
                                  <label for="name" class="form-label fw-bold">Category Name</label>
                                  <input type="text" th:field="*{name}" class="form-control" required />
+                              </div>
+
+                              <!-- Category Image -->
+                              <div class="mb-3">
+                                 <label for="image" class="form-label fw-bold">Category Image</label>
+                                 <input type="file" name="image" class="form-control" accept="image/*" required />
                               </div>
 
                               <!-- Save button -->
@@ -127,6 +134,7 @@
                                  <button type="submit" class="btn btn-primary">Save</button>
                               </div>
                            </form>
+
 
 
                            <!-- input -->
