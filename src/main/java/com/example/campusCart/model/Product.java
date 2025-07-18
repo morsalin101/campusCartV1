@@ -3,7 +3,6 @@ package com.example.campusCart.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
@@ -22,8 +21,18 @@ public class Product {
 
     private double price;
 
-    private String picture; // this should store the filename or path
+    private double discount; 
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Category> categories;
+    private String picture;
+
+    @Lob
+    private String description; 
+
+    private boolean inStock; 
+
+    private boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

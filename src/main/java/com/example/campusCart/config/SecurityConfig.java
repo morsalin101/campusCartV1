@@ -3,7 +3,7 @@ package com.example.campusCart.config;
 import com.example.campusCart.service.CustomUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -41,20 +41,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 http
-    //.csrf(csrf -> csrf.disable())  // Optional
-    .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                "/",                         // homepage
-                "/login", "/register",       // public auth pages
-                "/assets/**",                // ✅ assets folder (css, js, images)
-                "/static/**",                // ✅ static fallback (if accessed directly)
-                "/css/**", "/js/**", "/images/**", "/fonts/**", "/favicon.ico","/libs/**" // ✅ other static resources
-            ).permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .requestMatchers("/super-admin/**").hasRole("SUPER_ADMIN")
-            .requestMatchers("/user/**").hasRole("USER")
-            .anyRequest().authenticated()
-    )
+    // .csrf(csrf -> csrf.disable())  // Optional
+.authorizeHttpRequests(auth -> auth
+    .requestMatchers("/images/**", "/css/**", "/js/**", "/static/**", "/assets/**","/libs/**","/media/**").permitAll()
+    .requestMatchers("/login", "/register", "/").permitAll()
+    .requestMatchers("/dashboard/add_product").permitAll() 
+    .anyRequest().permitAll() 
+)
+
+    
      .formLogin(form -> form
             .loginPage("/login")
             .defaultSuccessUrl("/dashboard/index", true)
