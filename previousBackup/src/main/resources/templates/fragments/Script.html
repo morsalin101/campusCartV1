@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body>
+  <div th:fragment="script">
+        <script th:src="@{../assets/libs/flatpickr/dist/flatpickr.min.js}"></script>
+      <!-- Libs JS -->
+		<!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
+		<script th:src="@{../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{../assets/libs/simplebar/dist/simplebar.min.js}"></script>
+
+		<!-- Theme JS -->
+		<script th:src="@{../assets/js/theme.min.js}"></script>
+
+      <script th:src="@{../assets/libs/quill/dist/quill.min.js}"></script>
+      <script th:src="@{../assets/js/vendors/editor.js}"></script>
+      <script th:src="@{../assets/libs/dropzone/dist/min/dropzone.min.js}"></script>
+  </div>
+
+</body>
+</html>
