@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <meta content="Codescandy" name="author">
+ <title>Add Category - FreshCart Admin</title>
+
+ <!-- CSS Libraries -->
+ <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+ <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+ <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/theme.min.css">
+
+</head>
+
+<body>
+ <!-- Navbar -->
+ <div th:replace="fragments/Nav :: admin_nav"></div>
+
+ <!-- Main Wrapper -->
+ <div class="main-wrapper">
+
+  <!-- Sidebar -->
+  <div th:replace="fragments/Sidebar :: sidebar"></div>
+
+  <!-- Main Content -->
+  <main class="main-content-wrapper">
+   <div class="container">
+
+    <!-- Page Header -->
+    <div class="row mb-8">
+     <div class="col-md-12 d-md-flex justify-content-between align-items-center">
+      <h2 class="mb-3 mb-md-0">Add New Category</h2>
+      <a th:href="@{/category/list}" class="btn btn-light">Back to Categories</a>
+     </div>
+    </div>
+
+    <!-- Category Add Form -->
+    <form th:action="@{/category/save}" method="post">
+     <div class="row">
+      <div class="col-lg-8 col-12">
+       <div class="card mb-6 card-lg">
+        <div class="card-body p-6">
+         <h4 class="mb-4 h5">Category Information</h4>
+         <div class="row">
+
+          <!-- Category Name -->
+          <div class="mb-3 col-lg-12">
+           <label class="form-label">Category Name</label>
+           <input type="text" class="form-control" name="name" placeholder="Enter category name" required>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid mt-4">
+           <button type="submit" class="btn btn-primary">Create Category</button>
+          </div>
+
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </form>
+
+   </div>
+  </main>
+ </div>
+
+ <!-- JS Scripts -->
+ <div th:replace="fragments/Script :: script"></div>
+</body>
+
+</html>

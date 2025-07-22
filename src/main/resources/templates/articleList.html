@@ -1,52 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml" xmlns:sec="http://www.w3.org./1999/xhtml">
-<head th:replace="common/header :: common-header" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="Codescandy" name="author">
+  <title>Product List Dashboard - FreshCart</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico">
+
+  <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+  <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/theme.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-M8S4MT3EYG");
+  </script>
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "kuc8w5o9nt");
+  </script>
+
+</head>
+
 <body>
+  <div th:replace="fragments/Nav :: admin_nav"></div>
+  <div class="main-wrapper">
+    <div th:replace="fragments/Sidebar :: sidebar"></div>
+    <main class="main-content-wrapper">
+      <div class="container">
+        <div class="row mb-8">
+          <div class="col-md-12 d-md-flex justify-content-between align-items-center">
+            <h2>Product List</h2>
+            <a th:href="@{/article/add}" class="btn btn-primary">Add New Product</a>
+          </div>
+        </div>
 
-  <div th:replace="adminHome :: navbarAdmin"> </div>
-
-  <div class="container page-content">
-    <table id="table-article" class="table table-striped table-bordered table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Brand</th>
-        <th>Sizes</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Operation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-th-each="article : ${articles}">
-        <td th:text="${article.title}"></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.categories}" 
-            th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.brands}" 
-            th:text="${item.getName()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td><div style="display:flex;"><span th:each="item : ${article.sizes}" 
-            th:text="${item.getValue()}" class="badge badge-secondary mt-1 mr-1" ></span></div></td>
-        <td th:text="${article.price}"></td>
-        <td th:text="${article.stock}"></td>
-        <td><a th:href="@{/article/edit?id=}+${article.id}" class="badge badge-primary">EDIT</a>  
-            <a th:href="@{/article/delete?id=}+${article.id}" class="badge badge-danger">DELETE </a> </td>
-      </tr>
-    </tbody>
-  </table>
+        <div class="row">
+          <div class="col-xl-12 col-12 mb-5">
+            <div class="card h-100 card-lg">
+              <div class="card-body p-6">
+                <h4 class="mb-4 h5">Products</h4>
+                <table id="table-article" class="table table-striped table-bordered" style="width:100%">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Brand</th>
+                      <th>Sizes</th>
+                      <th>Price</th>
+                      <th>Stock</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-th-each="article : ${articles}">
+                      <td th:text="${article.title}"></td>
+                      <td>
+                        <div class="d-flex flex-wrap">
+                          <span th:each="item : ${article.categories}" th:text="${item.getName()}"
+                            class="badge bg-light-primary text-primary-emphasis m-1"></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-wrap">
+                          <span th:each="item : ${article.brands}" th:text="${item.getName()}"
+                            class="badge bg-light-info text-info-emphasis m-1"></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-wrap">
+                          <span th:each="item : ${article.sizes}" th:text="${item.getValue()}"
+                            class="badge bg-light-secondary text-secondary-emphasis m-1"></span>
+                        </div>
+                      </td>
+                      <td th:text="'$' + ${article.price}"></td>
+                      <td th:text="${article.stock}"></td>
+                      <td>
+                        <a th:href="@{/article/edit(id=${article.id})}" class="btn btn-sm btn-outline-primary">EDIT</a>
+                        <a th:href="@{/article/delete(id=${article.id})}"
+                          class="btn btn-sm btn-outline-danger ms-2">DELETE</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
+  <div th:replace="fragments/Script :: script"></div>
 
-
-  <div th:replace="common/header :: body-scripts"> </div>
-  
   <script>
-  	$(document).ready(function() {
-	    $('#table-article').DataTable({
-	    	stateSave: true
-	    });
-	} );
-  </script> 
+    $(document).ready(function () {
+      $('#table-article').DataTable({
+        "stateSave": true,
+        "responsive": true
+      });
+    });
+  </script>
 
 </body>
+
 </html>

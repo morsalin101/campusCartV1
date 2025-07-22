@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <meta charset="utf-8" />
+ <title>Category List - FreshCart</title>
+ <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+ <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet" />
+ <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" />
+ <link rel="stylesheet" href="../assets/css/theme.min.css" />
+</head>
+
+<body>
+ <!-- Navbar -->
+ <div th:replace="fragments/Nav :: admin_nav"></div>
+
+ <!-- Wrapper -->
+ <div class="main-wrapper">
+  <div th:replace="fragments/Sidebar :: sidebar"></div>
+
+  <main class="main-content-wrapper">
+   <div class="container">
+
+    <!-- Floating Edit Form (Dropdown Style) -->
+    <div id="editFormContainer" class="card shadow-sm position-fixed start-50 translate-middle-x mt-3 d-none"
+     style="top: 20px; max-width: 400px; z-index: 1050;">
+     <div class="card-body">
+      <h5 class="card-title mb-3">Edit Category</h5>
+      <form th:action="@{/category/update}" method="post" id="editForm" class="row g-3">
+       <input type="hidden" id="editId" name="id" />
+       <div class="col-md-12">
+        <label for="editName" class="form-label">Category Name</label>
+        <input type="text" class="form-control" id="editName" name="name" required />
+       </div>
+       <div class="col-12 text-end">
+        <button type="submit" class="btn btn-success me-2">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
+       </div>
+      </form>
+     </div>
+    </div>
+
+    <!-- Header -->
+    <div class="row mb-4">
+     <div class="col-md-12 d-md-flex justify-content-between align-items-center">
+      <h2 class="mb-3 mb-md-0">Category List</h2>
+      <a th:href="@{/category/add}" class="btn btn-primary">Add Category</a>
+     </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+     <div class="card-body p-0">
+      <div class="table-responsive">
+       <table class="table table-centered table-hover table-borderless mb-0 text-nowrap">
+        <thead class="bg-light">
+         <tr>
+          <th>Category ID</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr th:each="cat, stat : ${categories}">
+          <td th:text="${stat.index + 1}">1</td> <!-- Serial No -->
+          <td th:text="${cat.name}">Shoes</td>
+          <td>
+           <button class="btn btn-sm btn-outline-primary" type="button"
+            th:attr="data-id=${cat.id}, data-name=${cat.name}"
+            onclick="showEditForm(this.getAttribute('data-id'), this.getAttribute('data-name'))">Edit</button>
+
+           <a th:href="@{/category/delete/{id}(id=${cat.id})}" class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Are you sure to delete this category?')">Delete</a>
+          </td>
+         </tr>
+
+
+         <tr th:if="${#lists.isEmpty(categories)}">
+          <td colspan="3" class="text-center">No categories available.</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </div>
+
+   </div>
+  </main>
+ </div>
+
+ <!-- Scripts -->
+ <div th:replace="fragments/Script :: script"></div>
+
+ <script>
+  function showEditForm(id, name) {
+   const formContainer = document.getElementById('editFormContainer');
+   const editIdInput = document.getElementById('editId');
+   const editNameInput = document.getElementById('editName');
+
+   editIdInput.value = id;
+   editNameInput.value = name;
+
+   formContainer.classList.remove('d-none');
+   window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+
+  function hideEditForm() {
+   document.getElementById('editFormContainer').classList.add('d-none');
+  }
+ </script>
+</body>
+
+</html>
