@@ -30,28 +30,31 @@
                   <!-- col -->
                   <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
                      <div class="pt-10 pe-lg-10">
-                        <!-- nav item -->
+                        <!-- nav -->
                         <ul class="nav flex-column nav-pills nav-pills-dark">
+                           <!-- nav item -->
                            <li class="nav-item">
-                              <a class="nav-link active" aria-current="page" th:href="@{/my-orders}" >
+                              <!-- nav link -->
+                              <a class="nav-link" aria-current="page" th:href="@{/my-orders}">
                                  <i class="feather-icon icon-shopping-bag me-2"></i>
                                  Your Orders
                               </a>
                            </li>
                            <!-- nav item -->
                            <li class="nav-item">
-                              <a class="nav-link " th:href="@{/user-profile}">
+                              <a class="nav-link" th:href="@{/user-profile}">
                                  <i class="feather-icon icon-settings me-2"></i>
                                  Settings
                               </a>
                            </li>
                            <!-- nav item -->
                            <li class="nav-item">
-                              <a class="nav-link" th:href="@{/my-address}">
+                              <a class="nav-link active" th:href="@{/my-address}">
                                  <i class="feather-icon icon-map-pin me-2"></i>
                                  Address
                               </a>
-                           </li>                       
+                           </li>
+                        
                            <!-- nav item -->
                            <li class="nav-item">
                               <hr />
@@ -66,53 +69,39 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="col-lg-9 col-md-8 col-12">
-                     <div class="py-6 p-md-6 p-lg-10">
-                        <!-- heading -->
-                        <h2 class="mb-6">Your Orders</h2>
 
-                        <div class="table-responsive-xxl border-0">
-                           <!-- Table -->
-                           <table class="table mb-0 text-nowrap table-centered">
-                              <!-- Table Head -->
-                              <thead class="bg-light">
-                                 <tr>
-                                   
-                                    <!-- <th>Product</th> -->
-                                    <th>Order</th>
-                                    <th>Date</th>
-                                    <th>Items</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-
-                                    <th></th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <!-- Table body -->
-                                 <tr  th:each="order : ${orders}">
-                                    <!-- <td class="align-middle border-top-0 w-0">
-                                       <a href="#"><img src="../assets/images/products/product-img-1.jpg" alt="Ecommerce" class="icon-shape icon-xl" /></a>
-                                    </td> -->
-                                  
-                                    <th scope="row" >
-                                      <a th:href="@{/order-detail?order=}+${order.id}" class="text-primary">ORD<span th:text="${order.id}"></span></a>
-                                    </th>   
-                                    <td class="align-middle border-top-0"  th:text="${#dates.format(order.orderDate, 'dd-MMM-yyyy')}">March 5, 2023</td>
-                                    <td class="align-middle border-top-0">1</td>
-                                    <td class="align-middle border-top-0">
-                                       <span class="badge bg-warning" th:text="${order.orderStatus}">Processing</span>
-                                    </td>
-                                    <td class="align-middle border-top-0"  th:text="${order.orderTotal}">$15.00</td>
-                                    <!-- <td class="text-muted align-middle border-top-0">
-                                       <a href="#" class="text-inherit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View"><i class="feather-icon icon-eye"></i></a>
-                                    </td> -->
-                                 </tr>
-                              </tbody>
-                           </table>
+                    <div class="col-lg-9 col-md-8 col-12">
+                    <div class="card">
+                        <div class="card-body">   
+                        <h3>My Address</h3><hr>
+                        <form th:action="@{/update-user-address}" method="post">
+                            <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="billingAddress">Address</label>
+                                <input type="text" class="form-control" th:name="streetAddress" th:value="${user?.address?.streetAddress}">
+                            </div>
+                            <div class="form-group col-6 col-sm-5">
+                                <label for="billingCountry">Country</label>
+                                <input type="text" class="form-control" th:name="country" th:value="${user?.address?.country}">
+                                
+                            </div>
+                            <div class="form-group col-6 col-sm-5">
+                                <label for="billingCity">City</label>
+                                <input type="text" class="form-control"   th:name="city" th:value="${user?.address?.city}">
+                            </div>
+                            <div class="form-group col-3 col-sm-2">
+                                <label for="billingZip">ZIP Code</label>
+                                <input type="number" class="form-control" th:name="zipCode" th:value="${user?.address?.zipCode}">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                        
                         </div>
-                     </div>
-                  </div>
+                    </div>
+                 </div>
                </div>
             </div>
          </section>
@@ -153,5 +142,6 @@
 
 
   </script>
+
 </body>
 </html>

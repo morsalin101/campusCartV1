@@ -52,6 +52,12 @@ public class AccountController {
 		model.addAttribute("user", user);
 		return "myProfile";
 	}
+	@RequestMapping("/user-profile")
+	public String userProfile(Model model, Authentication authentication) {				
+		User user = (User) authentication.getPrincipal();
+		model.addAttribute("user", user);
+		return "myProfile";
+	}
 	
 	@RequestMapping("/my-orders")
 	public String myOrders(Model model, Authentication authentication) {
@@ -66,7 +72,7 @@ public class AccountController {
 	public String myAddress(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("user", user);
-		return "myAddress";
+		return "address";
 	}
 	
 	@RequestMapping(value="/update-user-address", method=RequestMethod.POST)

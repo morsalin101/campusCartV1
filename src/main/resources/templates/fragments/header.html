@@ -378,15 +378,18 @@
                                <a class="nav-link"  th:href="@{/login}">My Account </a>
                            </li>
                            
-                           <li class="nav-item w-100 w-lg-auto" sec:authorize="hasRole('ADMIN')">
+                           <!-- <li class="nav-item w-100 w-lg-auto" sec:authorize="hasRole('ADMIN')">
                               <a class="nav-link" href="dashboard/index.html">Dashboard</a>
-                           </li>
+                           </li> -->
                            <li class="nav-item w-100 w-lg-auto" sec:authorize="hasRole('ADMIN')">
-                           <a class="nav-link"  th:href="@{/article/article-list}"> ADMIN PORTAL</a>
+                           <a class="nav-link"  th:href="@{/article/article-list}">Admin Portal</a>
                            </li>
                              <li class="nav-item w-100 w-lg-auto" sec:authorize="isAuthenticated()">
                            <a class="nav-link" th:href="@{/my-profile}">My Account</a>
                            </li>
+                           <!-- <li class="nav-item w-100 w-lg-auto" sec:authorize="hasRole('USER')">
+                           <a class="nav-link" th:href="@{/user-profile}">Account</a>
+                           </li> -->
                         </ul>
                      </div>
                   </div>

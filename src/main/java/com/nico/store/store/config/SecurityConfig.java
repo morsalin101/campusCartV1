@@ -43,7 +43,7 @@ SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/images/**",
 			"/admin-panel",
 			"/products/**",
-			"/product-detail",
+            "/account/**",
 
 	};
 	

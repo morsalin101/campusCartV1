@@ -24,22 +24,16 @@ public class HomeController {
 		model.addAttribute("articles", articles);
 		return "index";
 	}
-	@RequestMapping("/index")
-	public String index2(Model model) {	
-		List<Article> articles = articleService.findFirstArticles();
-		model.addAttribute("articles", articles);	
-		return "index2";	
-	}
 
-	@GetMapping("/admin-panel")
-    public String  adminDash(Model model){
-		return "adminPanel";
 
-	}
+
 	@GetMapping("/product-detail")
 	public String  productDetail(Model model){
 		return "productDetail";
 	}
+	@GetMapping("/account")
+	public String account(Model model) {
+		return "userAccount";
+	}
 
-	
 }
