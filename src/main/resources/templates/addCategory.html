@@ -12,7 +12,6 @@
  <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
  <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
  <link rel="stylesheet" href="../assets/css/theme.min.css">
-
 </head>
 
 <body>
@@ -37,8 +36,16 @@
      </div>
     </div>
 
+    <!-- Success Alert -->
+    <div th:if="${success}" class="alert alert-success d-flex align-items-center" role="alert">
+     <i class="bi bi-check-circle-fill me-2"></i>
+     <div>
+      Category added successfully!
+     </div>
+    </div>
+
     <!-- Category Add Form -->
-    <form th:action="@{/category/save}" method="post">
+    <form th:action="@{/category/save}" method="post" enctype="multipart/form-data">
      <div class="row">
       <div class="col-lg-8 col-12">
        <div class="card mb-6 card-lg">
@@ -50,6 +57,16 @@
           <div class="mb-3 col-lg-12">
            <label class="form-label">Category Name</label>
            <input type="text" class="form-control" name="name" placeholder="Enter category name" required>
+          </div>
+
+          <!-- Category Image Upload -->
+          <div class="mb-3 col-lg-12">
+           <label class="form-label">Upload Image</label>
+           <input type="file" class="form-control" name="imageFile" accept="image/*" onchange="previewImage(event)">
+           <div class="mt-2">
+            <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid rounded d-none"
+             style="max-height: 120px;">
+           </div>
           </div>
 
           <!-- Submit Button -->
@@ -70,6 +87,19 @@
 
  <!-- JS Scripts -->
  <div th:replace="fragments/Script :: script"></div>
+
+ <script>
+  function previewImage(event) {
+   const image = document.getElementById('imagePreview');
+   const file = event.target.files[0];
+   if (file) {
+    image.src = URL.createObjectURL(file);
+    image.classList.remove('d-none');
+   } else {
+    image.classList.add('d-none');
+   }
+  }
+ </script>
 </body>
 
 </html>

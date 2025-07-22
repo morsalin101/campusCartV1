@@ -2,113 +2,166 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
- <meta charset="utf-8" />
- <title>Category List - FreshCart</title>
- <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
- <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet" />
- <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" />
- <link rel="stylesheet" href="../assets/css/theme.min.css" />
+  <meta charset="utf-8" />
+  <title>Category List - FreshCart</title>
+  <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet" />
+  <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.min.css" />
+  <style>
+    /* Move inline styles here */
+    #editFormContainer {
+      top: 20px;
+      max-width: 400px;
+      z-index: 1050;
+    }
+  </style>
 </head>
 
 <body>
- <!-- Navbar -->
- <div th:replace="fragments/Nav :: admin_nav"></div>
+  <!-- Navbar -->
+  <div th:replace="fragments/Nav :: admin_nav"></div>
 
- <!-- Wrapper -->
- <div class="main-wrapper">
-  <div th:replace="fragments/Sidebar :: sidebar"></div>
+  <!-- Wrapper -->
+  <div class="main-wrapper">
+    <div th:replace="fragments/Sidebar :: sidebar"></div>
 
-  <main class="main-content-wrapper">
-   <div class="container">
+    <main class="main-content-wrapper">
+      <div class="container">
 
-    <!-- Floating Edit Form (Dropdown Style) -->
-    <div id="editFormContainer" class="card shadow-sm position-fixed start-50 translate-middle-x mt-3 d-none"
-     style="top: 20px; max-width: 400px; z-index: 1050;">
-     <div class="card-body">
-      <h5 class="card-title mb-3">Edit Category</h5>
-      <form th:action="@{/category/update}" method="post" id="editForm" class="row g-3">
-       <input type="hidden" id="editId" name="id" />
-       <div class="col-md-12">
-        <label for="editName" class="form-label">Category Name</label>
-        <input type="text" class="form-control" id="editName" name="name" required />
-       </div>
-       <div class="col-12 text-end">
-        <button type="submit" class="btn btn-success me-2">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
-       </div>
-      </form>
-     </div>
-    </div>
+        <!-- Edit Form (Dropdown Style) -->
+        <div id="editFormContainer" class="card shadow-sm position-fixed start-50 translate-middle-x mt-3 d-none">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Edit Category</h5>
+            <form th:action="@{/category/update}" method="post" id="editForm" enctype="multipart/form-data"
+              class="row g-3">
+              <input type="hidden" id="editId" name="id" />
+              <div class="col-12">
+                <label for="editName" class="form-label">Category Name</label>
+                <input type="text" class="form-control" id="editName" name="name" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Current Image</label>
+                <div>
+                  <img id="currentImage" src="" alt="No image" class="img-fluid rounded d-none"
+                    style="max-height: 100px;" />
+                  <!-- d-none by default; show only if image exists -->
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Change Image</label>
+                <input type="file" name="imageFile" class="form-control" accept="image/*" />
+              </div>
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-success me-2">Save</button>
+                <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-    <!-- Header -->
-    <div class="row mb-4">
-     <div class="col-md-12 d-md-flex justify-content-between align-items-center">
-      <h2 class="mb-3 mb-md-0">Category List</h2>
-      <a th:href="@{/category/add}" class="btn btn-primary">Add Category</a>
-     </div>
-    </div>
+        <!-- Header -->
+        <div class="row mb-4">
+          <div class="col-md-12 d-md-flex justify-content-between align-items-center">
+            <h2 class="mb-3 mb-md-0">Category List</h2>
+            <a th:href="@{/category/add}" class="btn btn-primary">Add Category</a>
+          </div>
+        </div>
 
-    <!-- Table -->
-    <div class="card">
-     <div class="card-body p-0">
-      <div class="table-responsive">
-       <table class="table table-centered table-hover table-borderless mb-0 text-nowrap">
-        <thead class="bg-light">
-         <tr>
-          <th>Category ID</th>
-          <th>Category Name</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr th:each="cat, stat : ${categories}">
-          <td th:text="${stat.index + 1}">1</td> <!-- Serial No -->
-          <td th:text="${cat.name}">Shoes</td>
-          <td>
-           <button class="btn btn-sm btn-outline-primary" type="button"
-            th:attr="data-id=${cat.id}, data-name=${cat.name}"
-            onclick="showEditForm(this.getAttribute('data-id'), this.getAttribute('data-name'))">Edit</button>
+        <!-- Table -->
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-centered table-hover table-borderless mb-0 text-nowrap">
+                <thead class="bg-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="cat, stat : ${categories}">
+                    <td th:text="${stat.index + 1}">1</td>
+                    <td th:text="${cat.name}">Shoes</td>
+                    <td>
+                      <span th:if="${cat.image == null}">No Image</span>
+                      <img th:if="${cat.image != null}"
+                        th:src="@{'/images/category/' + ${cat.image} + '?v=' + ${T(java.lang.System).currentTimeMillis()}}"
+                        alt="Category Image" width="80" height="50" class="rounded" />
+                    </td>
+                    <td>
+                      <!-- Edit Button -->
+                      <button class="btn btn-sm btn-outline-primary me-1" type="button" th:data-id="${cat.id}"
+                        th:data-name="${cat.name}" th:data-image="${cat.image}" onclick="showEditForm(this)">
+                        Edit
+                      </button>
 
-           <a th:href="@{/category/delete/{id}(id=${cat.id})}" class="btn btn-sm btn-outline-danger"
-            onclick="return confirm('Are you sure to delete this category?')">Delete</a>
-          </td>
-         </tr>
+                      <!-- Delete Button (form with POST method for delete) -->
+                      <form th:action="@{/category/delete/{id}(id=${cat.id})}" method="post"
+                        th:onsubmit="return confirm('Are you sure you want to delete this category?');"
+                        style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
 
+                  <tr th:if="${#lists.isEmpty(categories)}">
+                    <td colspan="4" class="text-center">No categories available.</td>
+                  </tr>
+                </tbody>
 
-         <tr th:if="${#lists.isEmpty(categories)}">
-          <td colspan="3" class="text-center">No categories available.</td>
-         </tr>
-        </tbody>
-       </table>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
-     </div>
-    </div>
+    </main>
+  </div>
 
-   </div>
-  </main>
- </div>
+  <!-- Scripts -->
+  <div th:replace="fragments/Script :: script"></div>
 
- <!-- Scripts -->
- <div th:replace="fragments/Script :: script"></div>
+  <script>
+    function showEditForm(button) {
+      const formContainer = document.getElementById('editFormContainer');
+      const editIdInput = document.getElementById('editId');
+      const editNameInput = document.getElementById('editName');
+      const currentImage = document.getElementById('currentImage');
 
- <script>
-  function showEditForm(id, name) {
-   const formContainer = document.getElementById('editFormContainer');
-   const editIdInput = document.getElementById('editId');
-   const editNameInput = document.getElementById('editName');
+      const id = button.getAttribute('data-id');
+      const name = button.getAttribute('data-name');
+      const image = button.getAttribute('data-image');
 
-   editIdInput.value = id;
-   editNameInput.value = name;
+      editIdInput.value = id;
+      editNameInput.value = name;
 
-   formContainer.classList.remove('d-none');
-   window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+      if (image && image !== 'null') {
+        currentImage.src = `/images/category/${image}`;
+        currentImage.classList.remove('d-none');
+      } else {
+        currentImage.src = '';
+        currentImage.classList.add('d-none');
+      }
 
+      formContainer.classList.remove('d-none');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  function hideEditForm() {
-   document.getElementById('editFormContainer').classList.add('d-none');
-  }
- </script>
+    function hideEditForm() {
+      const formContainer = document.getElementById('editFormContainer');
+      formContainer.classList.add('d-none');
+      // Optional: reset form and image preview
+      document.getElementById('editForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        window.location.reload();
+      });
+      document.getElementById('currentImage').src = '';
+      document.getElementById('currentImage').classList.add('d-none');
+    }
+  </script>
 </body>
 
 </html>
