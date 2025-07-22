@@ -1,5 +1,7 @@
 package com.nico.store.store.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nico.store.store.domain.Article;
 import com.nico.store.store.domain.ArticleBuilder;
@@ -19,6 +22,7 @@ import com.nico.store.store.domain.Brand;
 import com.nico.store.store.domain.Category;
 import com.nico.store.store.domain.Size;
 import com.nico.store.store.service.ArticleService;
+import java.nio.file.Path;
 
 @Controller
 @RequestMapping("/article")
@@ -37,20 +41,50 @@ public class ArticleController {
 		return "addProduct";
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addArticlePost(@ModelAttribute("article") Article article, HttpServletRequest request) {
-		Article newArticle = new ArticleBuilder()
-				.withTitle(article.getTitle())
-				.stockAvailable(article.getStock())
-				.withPrice(article.getPrice())
-				.imageLink(article.getPicture())
-				.sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
-				.ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
-				.ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
-				.build();		
-		articleService.saveArticle(newArticle);	
-		return "redirect:article-list";
-	}
+@RequestMapping(value = "/add", method = RequestMethod.POST)
+public String addArticlePost(@ModelAttribute("article") Article article,
+                             @RequestParam("pictureFile") MultipartFile file,
+                             HttpServletRequest request) {
+    try {
+        // Define external upload directory
+        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/products/";
+
+
+        // Create directory if it doesn't exist
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // Get original filename and create full path
+        String originalFilename = file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(originalFilename);
+
+        // Save the file
+        file.transferTo(filePath.toFile());
+
+        // Save only filename to the database
+        article.setPicture(originalFilename);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "error"; // handle error properly
+    }
+
+    Article newArticle = new ArticleBuilder()
+            .withTitle(article.getTitle())
+            .stockAvailable(article.getStock())
+            .withPrice(article.getPrice())
+            .imageLink(article.getPicture())
+            .sizesAvailable(Arrays.asList(request.getParameter("size").split("\\s*,\\s*")))
+            .ofCategories(Arrays.asList(request.getParameter("category").split("\\s*,\\s*")))
+            .ofBrand(Arrays.asList(request.getParameter("brand").split("\\s*,\\s*")))
+            .build();
+
+    articleService.saveArticle(newArticle);
+    return "redirect:article-list";
+}
+
 	
 	@RequestMapping("/article-list")
 	public String articleList(Model model) {

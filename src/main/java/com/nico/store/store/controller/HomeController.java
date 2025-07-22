@@ -36,15 +36,10 @@ public class HomeController {
 		return "adminPanel";
 
 	}
-	// @GetMapping("/add-product")
-    // public String addProduct(Model model){
-	// 	Article article = new Article();
-	// 	model.addAttribute("article", article);
-	// 	model.addAttribute("allSizes", articleService.getAllSizes());
-	// 	model.addAttribute("allBrands", articleService.getAllBrands());
-	// 	model.addAttribute("allCategories", articleService.getAllCategories());
-	// 	return "addProduct";
-	// }
+	@GetMapping("/product-detail")
+	public String  productDetail(Model model){
+		return "productDetail";
+	}
 
 	
 }

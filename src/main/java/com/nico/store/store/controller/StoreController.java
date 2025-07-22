@@ -45,7 +45,7 @@ public class StoreController {
 		model.addAttribute("article", article);
 		model.addAttribute("notEnoughStock", model.asMap().get("notEnoughStock"));
 		model.addAttribute("addArticleSuccess", model.asMap().get("addArticleSuccess"));
-		return "articleDetail";
+		return "productDetail";
 	}
 	
 

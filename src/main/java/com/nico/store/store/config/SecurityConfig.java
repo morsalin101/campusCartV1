@@ -42,7 +42,9 @@ SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/assets/**",
 			"/images/**",
 			"/admin-panel",
-			"/add-product"
+			"/products/**",
+			"/product-detail",
+
 	};
 	
 	@Override

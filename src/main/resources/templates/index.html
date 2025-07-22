@@ -149,7 +149,7 @@
                         <span class="badge bg-danger">Sale</span>
                      </div>
                      <a href="#!">
-                        <img th:src="${article.picture}" alt="Product Image" class="mb-3 img-fluid" />
+                        <img th:src="@{'/products/' + ${article.picture}}" alt="Product Image" class="mb-3 img-fluid" />
                      </a>
 
                      <div class="card-product-action">
