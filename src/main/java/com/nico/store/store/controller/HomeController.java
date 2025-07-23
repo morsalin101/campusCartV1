@@ -1,6 +1,7 @@
 package com.nico.store.store.controller;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nico.store.store.domain.Article;
 import com.nico.store.store.service.ArticleService;
+import com.nico.store.store.service.CategoryService;
 
 @Controller
 public class HomeController {
@@ -21,6 +23,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index(Model model) {		
 		List<Article> articles = articleService.findFirstArticles();
+		model.addAttribute("allCategories", articleService.getAllCategories());
 		model.addAttribute("articles", articles);
 		return "index";
 	}
