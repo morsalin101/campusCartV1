@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nico.store.store.domain.Article;
 import com.nico.store.store.service.ArticleService;
@@ -19,14 +20,17 @@ public class HomeController {
 	@Autowired
 	private ArticleService articleService;
 	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping("/")
 	public String index(Model model) {		
 		List<Article> articles = articleService.findFirstArticles();
-		model.addAttribute("allCategories", articleService.getAllCategories());
+		model.addAttribute("categories", categoryService.getAllCategories());
 		model.addAttribute("articles", articles);
 		return "index";
 	}
+  
 
 
 

@@ -44,6 +44,7 @@ SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/admin-panel",
 			"/products/**",
             "/account/**",
+			"/category/**",
 
 	};
 	

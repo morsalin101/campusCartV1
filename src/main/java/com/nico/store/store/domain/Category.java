@@ -11,7 +11,7 @@ public class Category {
 
     private String name;
 
-    private String image; // ✅ New field to store image filename
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "article_id")
