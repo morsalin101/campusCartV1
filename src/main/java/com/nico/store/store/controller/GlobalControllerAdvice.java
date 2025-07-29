@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.nico.store.store.domain.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -43,6 +44,9 @@ public class GlobalControllerAdvice {
 			User user =  (User) auth.getPrincipal(); 
 			if (user != null) {
 				model.addAttribute("shoppingCartItemNumber", shoppingCartService.getItemsNumber(user) );
+				ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(user);
+				model.addAttribute("cartItemList", shoppingCart.getCartItems());
+				model.addAttribute("shoppingCart", shoppingCart);
 			}
 		} else { 
 			model.addAttribute("shoppingCartItemNumber", 0);
