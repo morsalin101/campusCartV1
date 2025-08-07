@@ -7,7 +7,8 @@
 			<div class="navbar-vertical">
 				<div class="px-4 py-5">
 					<a href="../index.html" class="navbar-brand">
-						<img src="../assets/images/logo/freshcart-logo.svg" alt="" />
+						<img th:src="@{/images/logo/freshcart.png}" alt="eCommerce HTML Template"
+							style="height: 78px; width: auto; object-fit: contain;" />
 					</a>
 				</div>
 				<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
@@ -51,24 +52,17 @@
 							<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
 								<ul class="nav flex-column">
 									<li class="nav-item">
-										<a class="nav-link " href="order-list.html">List</a>
+										<a class="nav-link " th:href="@{/article/order-list}">List</a>
 									</li>
 									<!-- Nav item -->
 									<li class="nav-item">
-										<a class="nav-link " href="order-single.html">Single</a>
+										<a class="nav-link " th:href="@{/article/order-single}">Single</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 
-						<li class="nav-item">
-							<a class="nav-link " href="vendor-grid.html">
-								<div class="d-flex align-items-center">
-									<span class="nav-link-icon"><i class="bi bi-shop"></i></span>
-									<span class="nav-link-text">Sellers / Vendors</span>
-								</div>
-							</a>
-						</li>
+
 						<li class="nav-item">
 							<a class="nav-link  collapsed " href="#" data-bs-toggle="collapse"
 								data-bs-target="#navCustomer" aria-expanded="false" aria-controls="navCustomer">
@@ -81,18 +75,27 @@
 							<div id="navCustomer" class="collapse " data-bs-parent="#sideNavbar">
 								<ul class="nav flex-column">
 									<li class="nav-item">
-										<a class="nav-link " href="customers.html">Customers</a>
+										<a class="nav-link " th:href="@{/article/customers}">Customers</a>
 									</li>
 									<!-- Nav item -->
-									<li class="nav-item">
+									<!-- <li class="nav-item">
 										<a class="nav-link " href="create-customers.html">Create Customers</a>
-									</li>
+									</li> -->
 									<!-- Nav item -->
-									<li class="nav-item">
+									<!-- <li class="nav-item">
 										<a class="nav-link " href="customers-edits.html">Edit Customers</a>
-									</li>
+									</li> -->m
 								</ul>
 							</div>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link " href="vendor-grid.html">
+								<div class="d-flex align-items-center">
+									<span class="nav-link-icon"><i class="bi bi-shop"></i></span>
+									<span class="nav-link-text">Sellers / Vendors</span>
+								</div>
+							</a>
 						</li>
 
 					</ul>

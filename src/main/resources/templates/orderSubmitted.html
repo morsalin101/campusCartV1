@@ -1,35 +1,52 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org./1999/xhtml">
-<head th:replace="common/header :: common-header" />
+
+<head th:replace="fragments/header :: common-header" />
 
 
 <body class="d-flex flex-column">
-  <div th:replace="common/header :: navbar"> </div>
+  <div th:replace="fragments/header :: navbar"> </div>
 
   <div class="container page-content">
-    <div class="card">
-      <div class="card-body">
-        <div class="text-center py-3">
-          <i data-feather="check-circle" class="text-success" width="48" height="48"></i>
-          <h1>Thank you.</h1>
-          <p>Your order has been placed and will be processed as soon as possible.</p>
+    <div class="card shadow-sm border-0 rounded-lg">
+      <div class="card-body text-center py-5 px-4">
+        <i data-feather="check-circle" class="text-success mb-4" width="64" height="64" style="stroke-width:2.5"></i>
+
+        <h1 class="display-5 fw-bold mb-3">Thank You!</h1>
+
+        <p class="lead mb-4 text-secondary">
+          Your order has been successfully placed and is now being processed.
+        </p>
+
+        <div class="d-inline-block text-start bg-light rounded-3 p-4 shadow-sm mb-4" style="min-width: 280px;">
+          <p class="mb-2">
+            <span class="text-muted fw-semibold">Order ID:</span><br />
+            <span class="text-primary fs-5">#ORD<span th:text="${order.id}"></span></span>
+          </p>
+          <p class="mb-2">
+            <span class="text-muted fw-semibold">Amount:</span><br />
+            <span class="text-primary fs-5">$ <span th:text="${order.orderTotal}"></span></span>
+          </p>
           <p class="mb-0">
-            <span class="text-muted">Order ID: </span>
-            <span class="text-info">#ORD<span th:text="${order.id}"></span></span>
+            <span class="text-muted fw-semibold">Estimated Delivery:</span><br />
+            <span class="text-primary fs-5" th:text="${#dates.format(order.shippingDate, 'dd-MMM-yyyy')}"></span>
           </p>
-          <p>
-            <span class="text-muted">Amount: </span>
-            <span class="text-info">$ <span th:text="${order.orderTotal}"></span></span>
-          </p>
-          <p>The estimated delivery date is <span th:text="${#dates.format(order.shippingDate, 'dd-MMM-yyyy')}"></span></p>
-          <a th:href="@{/store}" class="btn btn-info rounded mb-3">CONTINUE SHOPPING</a>
-          <a th:href="@{/order-detail?order=}+${order.id}" class="btn btn-primary rounded mb-3">VIEW ORDER</a>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a th:href="@{/store}" class="btn btn-outline-info btn-lg rounded-pill px-4 shadow-sm">
+            Continue Shopping
+          </a>
+          <a th:href="@{/order-detail?order=}+${order.id}" class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm">
+            View Order
+          </a>
         </div>
       </div>
-    </div>  
+    </div>
   </div> <!-- end container -->
-  
-  <div th:replace="common/header :: footer"> </div>
+
+  <div th:replace="fragments/header :: footer"> </div>
   <div th:replace="common/header :: body-scripts"> </div>
 </body>
+
 </html>

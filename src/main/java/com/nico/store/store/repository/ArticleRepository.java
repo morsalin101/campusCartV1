@@ -14,10 +14,10 @@ import com.nico.store.store.domain.Article;
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
 	
 	@EntityGraph(attributePaths = { "sizes", "categories", "brands" })
-	List<Article> findAllEagerBy();	
-		
+	List<Article> findAllEagerBy();
+	
 	@EntityGraph(attributePaths = { "sizes", "categories", "brands" })
-	Optional<Article> findById(Long id);
+	Optional<Article> findEagerById(Long id);
 	
 	@Query("SELECT DISTINCT s.value FROM Size s")
 	List<String> findAllSizes();

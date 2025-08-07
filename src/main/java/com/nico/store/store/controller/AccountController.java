@@ -67,6 +67,14 @@ public class AccountController {
 		model.addAttribute("orders", orders);
 		return "myOrders";
 	}
+
+// @RequestMapping("/article/order-list")
+// public String orderList(Model model) {
+//     List<Order> orders = orderService.findAll(); // Now fetches all orders
+//     model.addAttribute("orders", orders);
+//     return "order-list";
+// }
+
 	
 	@RequestMapping("/my-address")
 	public String myAddress(Model model, Principal principal) {

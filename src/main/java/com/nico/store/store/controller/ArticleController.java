@@ -4,24 +4,28 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nico.store.store.domain.Order;
 import com.nico.store.store.domain.Article;
 import com.nico.store.store.domain.ArticleBuilder;
 import com.nico.store.store.domain.Brand;
 import com.nico.store.store.domain.Category;
 import com.nico.store.store.domain.Size;
+import com.nico.store.store.domain.User;
 import com.nico.store.store.service.ArticleService;
+import com.nico.store.store.service.OrderService;
 import java.nio.file.Path;
 
 @Controller
@@ -30,6 +34,9 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+
+	@Autowired
+	private OrderService orderService;
 	
 	@RequestMapping("/add")
 	public String addArticle(Model model) {
@@ -92,6 +99,37 @@ public String addArticlePost(@ModelAttribute("article") Article article,
 		model.addAttribute("articles", articles);
 		return "articleList";
 	}
+
+@RequestMapping("/customers")
+public String customerList(Model model) {
+	// List<User> users = userService.findAll();
+
+	// List<UserDTO> customerDTOs = users.stream().map(user -> {
+	// 	UserDTO dto = new UserDTO();
+	// 	dto.setUsername(user.getUsername());
+	// 	dto.setFirstName(user.getFirstName());
+	// 	dto.setLastName(user.getLastName());
+	// 	dto.setEmail(user.getEmail());
+	// 	return dto;
+	// }).collect(Collectors.toList());
+	// model.addAttribute("customers", customerDTOs);
+	return "customers";
+}
+
+
+		
+@GetMapping("/order-details")
+public String getOrderDetails(@RequestParam("id") Long orderId, Model model) {
+    Order order = orderService.findOrderWithDetails(orderId);
+
+    if (order == null) {
+        return "error"; // or redirect with error message
+    }
+
+    model.addAttribute("order", order);
+    return "order-details"; // This is your Thymeleaf page
+}
+
 	
 	@RequestMapping("/edit")
 	public String editArticle(@RequestParam("id") Long id, Model model) {

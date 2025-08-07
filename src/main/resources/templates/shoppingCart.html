@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/header :: common-header" />
+
 <style>
   .cart-img {
     width: 100px;
@@ -69,9 +70,27 @@
             <small class="counter">TOTAL</small>
             <h3 class="font-weight-bold">$ <span
                 th:text="${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 0, 'COMMA', 2, 'POINT')}"></span></h3>
-            <a th:href="@{/store}" class="btn btn-info rounded-pill"><i data-feather="arrow-left"></i> Back to shop</a>
-            <a th:href="@{/checkout}" class="btn btn-primary rounded-pill">Checkout <i
-                data-feather="arrow-right"></i></a>
+            <div
+              class="d-flex justify-content-center justify-content-md-between align-items-center flex-wrap mt-4 gap-3">
+
+              <!-- Back to Shop Button -->
+              <a th:href="@{/store}"
+                class="btn btn-outline-secondary rounded-pill d-flex align-items-center px-4 py-2 shadow-sm">
+                <i data-feather="arrow-left" class="me-2"></i>
+                Back to Shop
+              </a>
+
+              <!-- Checkout Button -->
+              <a th:href="@{/checkout}"
+                class="btn btn-primary rounded-pill d-flex align-items-center px-4 py-2 shadow-sm">
+                Checkout
+                <i data-feather="arrow-right" class="ms-2"></i>
+              </a>
+
+            </div>
+
+
+
           </div>
         </div>
       </div>

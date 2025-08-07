@@ -45,20 +45,29 @@ public class CheckoutControler {
 		return "checkout";		
 	}
 	
-	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
-	public String placeOrder(@ModelAttribute("shipping") Shipping shipping,
-							@ModelAttribute("address") Address address,
-							@ModelAttribute("payment") Payment payment,
-							RedirectAttributes redirectAttributes, Authentication authentication) {		
-		User user = (User) authentication.getPrincipal();		
-		ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(user);	
-		if (!shoppingCart.isEmpty()) {
-			shipping.setAddress(address);
-			Order order = orderService.createOrder(shoppingCart, shipping, payment, user);		
-			redirectAttributes.addFlashAttribute("order", order);
-		}
-		return "redirect:/order-submitted";
-	}
+@RequestMapping(value = "/checkout", method = RequestMethod.POST)
+public String placeOrder(
+        @ModelAttribute("shipping") Shipping shipping,
+        @ModelAttribute("address") Address address,
+        @ModelAttribute("payment") Payment payment,
+        RedirectAttributes redirectAttributes,
+        Authentication authentication) {
+
+    User user = (User) authentication.getPrincipal();
+    ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(user);
+
+    if (!shoppingCart.isEmpty()) {
+        shipping.setAddress(address);
+
+        // Optional: link payment to order later in service if needed
+        Order order = orderService.createOrder(shoppingCart, shipping, payment, user);
+
+        redirectAttributes.addFlashAttribute("order", order);
+    }
+
+    return "redirect:/order-submitted";
+}
+
 	
 	@RequestMapping(value = "/order-submitted", method = RequestMethod.GET)
 	public String orderSubmitted(Model model) {

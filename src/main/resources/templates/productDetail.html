@@ -1,158 +1,187 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head th:replace="fragments/header :: common-header" />
 
-
 <body>
-  <div th:replace="fragments/header :: navbar"> </div>
+   <div th:replace="fragments/header :: navbar"></div>
 
+   <main>
+      <section class="mt-8">
+         <div class="container">
+            <form th:action="@{/shopping-cart/add-item}" method="post">
+               <input type="hidden" name="id" th:value="${article.id}" />
 
-
-      <main>
-
-<section class="mt-8">
-   <div class="container">
-<form th:action="@{/shopping-cart/add-item}" method="post">
-   <input type="hidden" name="id" th:value="${article.id}" />
-
-   <div class="row">
-      <!-- Left side: Product Image -->
-      <div class="col-md-6 col-xl-6">
-         <div class="slider slider-for">
-            <div class="zoom" onmousemove="zoom(event)" 
-                 th:style="'background-image: url(/products/' + ${article.picture} + ');'">
-            </div>
-            <img th:src="@{'/products/' + ${article.picture}}" alt="" class="img-fluid mt-3" />
-         </div>
-      </div>
-
-      <!-- Right side: Product Details -->
-      <div class="col-md-6 col-xl-6">
-         <div class="ps-lg-10 mt-6 mt-md-0">
-            <h1 class="mb-1" th:text="${article.title}">Product Title</h1>
-
-            <div class="mb-4">
-               <small class="text-warning">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-half"></i>
-               </small>
-               <a href="#" class="ms-2">(30 reviews)</a>
-            </div>
-
-            <div class="fs-4">
-               <span class="fw-bold text-dark" 
-                     th:text="'$'+${#numbers.formatDecimal(article.price, 0, T(Math).round(article.price) == article.price ? 0 : 2)}">$32</span>
-               <span class="text-decoration-line-through text-muted">$35</span>
-               <span><small class="fs-6 ms-2 text-danger">26% Off</small></span>
-            </div>
-
-            <hr class="my-6" />
-
-            <!-- Select Size -->
-            <div class="mb-4">
-               <label class="form-label">Select Size:</label>
-               <select name="size" class="form-select w-auto d-inline-block">
-                  <option value="250g">250g</option>
-                  <option value="500g">500g</option>
-                  <option value="1kg">1kg</option>
-               </select>
-            </div>
-
-            <!-- Quantity Input -->
-            <div class="mb-3">
-               <label class="form-label">Quantity:</label>
-               <div class="input-group input-spinner">
-                  <input type="button" value="-" class="button-minus btn btn-sm" />
-                  <input type="number" step="1" min="1" max="10" name="qty" value="1"
-                         class="quantity-field form-control-sm form-input" />
-                  <input type="button" value="+" class="button-plus btn btn-sm" />
-               </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="mt-3 row justify-content-start g-2 align-items-center">
-               <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-                  <button type="submit" class="btn btn-primary">
-                     <i class="feather-icon icon-shopping-bag me-2"></i>
-                     Add to cart
-                  </button>
-               </div>
-               <div class="col-md-4 col-4">
-                  <a class="btn btn-light" href="#" data-bs-toggle="tooltip" aria-label="Compare"><i class="bi bi-arrow-left-right"></i></a>
-                  <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
-               </div>
-            </div>
-
-            <hr class="my-6" />
-
-            <!-- Product Info -->
-            <table class="table table-borderless mb-0">
-               <tbody>
-                  <tr><td>Product Code:</td><td>FBB00255</td></tr>
-                  <tr><td>Availability:</td><td th:text="${article.stock}">In Stock</td></tr>
-                  <tr><td>Type:</td><td>Fruits</td></tr>
-                  <tr>
-                     <td>Shipping:</td>
-                     <td><small>01 day shipping. <span class="text-muted">(Free pickup today)</span></small></td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-      </div>
-   </div>
-</form>
-
-   </div>
-</section>
-
-         <section class="mt-lg-14 mt-8">
-            <div class="container">
                <div class="row">
-                  <div class="col-md-12">
-                     <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
-                        <!-- nav item -->
-                        <li class="nav-item" role="presentation">
-                           <!-- btn -->
-                           <button
-                              class="nav-link active"
-                              id="product-tab"
-                              data-bs-toggle="tab"
-                              data-bs-target="#product-tab-pane"
-                              type="button"
-                              role="tab"
-                              aria-controls="product-tab-pane"
-                              aria-selected="true">
-                              Product Details
-                           </button>
-                        </li>
-                     </ul>
-                     <!-- tab content -->
-                     <div class="tab-content" id="myTabContent">
-                        <!-- tab pane -->
-                        <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
-                           <div class="my-8">
-                              <div class="mb-5">
-                                 <!-- text -->
-                                 <h4 class="mb-1" th:text="${article.title}">Nutrient Value & Benefits</h4>
-                                 <p class="mb-0" >
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc
-                                    sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.
-                                 </p>
-                              </div>
+                  <!-- Left side: Product Image -->
+                  <div class="col-md-6 col-xl-6 text-center">
+                     <div class="mb-3">
+                        <img th:src="@{'/products/' + ${article.picture}}"
+                           onerror="this.onerror=null;this.src='/images/fallback.jpg';" alt="Product Image"
+                           class="img-fluid w-75 rounded shadow-sm" style="height: auto;" />
+                     </div>
+                  </div>
 
+                  <!-- Right side: Product Details -->
+                  <div class="col-md-6 col-xl-6">
+                     <div class="ps-lg-10 mt-6 mt-md-0">
+                        <h1 class="mb-1" th:text="${article.title}">Product Title</h1>
+
+                        <div class="mb-4">
+                           <small class="text-warning">
+                              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-half"></i>
+                           </small>
+                           <a href="#" class="ms-2">(30 reviews)</a>
+                        </div>
+
+                        <div class="fs-4">
+                           <span class="fw-bold text-dark"
+                              th:text="'$'+${#numbers.formatDecimal(article.price, 0, T(Math).round(article.price) == article.price ? 0 : 2)}">$32</span>
+                           <span class="text-decoration-line-through text-muted">$35</span>
+                           <span><small class="fs-6 ms-2 text-danger">26% Off</small></span>
+                        </div>
+
+                        <hr class="my-6" />
+
+                        <!-- Select Size -->
+                        <div class="mb-4">
+                           <label class="form-label">Select Size:</label>
+                           <select name="size" class="form-select w-auto d-inline-block">
+                              <option value="250g">250g</option>
+                              <option value="500g">500g</option>
+                              <option value="1kg">1kg</option>
+                           </select>
+                        </div>
+
+                        <!-- Quantity Input -->
+                        <div class="mb-3">
+                           <label class="form-label">Quantity:</label>
+                           <div class="input-group input-spinner">
+                              <input type="button" value="-" class="button-minus btn btn-sm btn-outline-secondary" />
+                              <input type="number" step="1" min="1" max="10" name="qty" value="1"
+                                 class="quantity-field form-control-sm form-input text-center" />
+                              <input type="button" value="+" class="button-plus btn btn-sm btn-outline-secondary" />
+                           </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mt-3 row justify-content-start g-2 align-items-center">
+                           <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                              <button type="submit" class="btn btn-primary">
+                                 <i class="feather-icon icon-shopping-bag me-2"></i>
+                                 Add to cart
+                              </button>
+                           </div>
+                           <div class="col-md-4 col-4">
+                              <a class="btn btn-light" href="#" data-bs-toggle="tooltip" aria-label="Compare">
+                                 <i class="bi bi-arrow-left-right"></i>
+                              </a>
+                              <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip"
+                                 aria-label="Wishlist">
+                                 <i class="feather-icon icon-heart"></i>
+                              </a>
+                           </div>
+                        </div>
+
+                        <hr class="my-6" />
+
+                        <!-- Product Info -->
+                        <table class="table table-borderless mb-0">
+                           <tbody>
+                              <tr>
+                                 <td>Product Code:</td>
+                                 <td>FBB00255</td>
+                              </tr>
+                              <tr>
+                                 <td>Availability:</td>
+                                 <td th:text="${article.stock}">In Stock</td>
+                              </tr>
+                              <tr>
+                                 <td>Type:</td>
+                                 <td>Fruits</td>
+                              </tr>
+                              <tr>
+                                 <td>Shipping:</td>
+                                 <td>
+                                    <small>01 day shipping. <span class="text-muted">(Free pickup today)</span></small>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </section>
+
+      <section class="mt-lg-14 mt-8">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
+                     <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="product-tab" data-bs-toggle="tab"
+                           data-bs-target="#product-tab-pane" type="button" role="tab" aria-controls="product-tab-pane"
+                           aria-selected="true">
+                           Product Details
+                        </button>
+                     </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                     <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel"
+                        aria-labelledby="product-tab" tabindex="0">
+                        <div class="my-8">
+                           <div class="mb-5">
+                              <h4 class="mb-1" th:text="${article.title}">Nutrient Value & Benefits</h4>
+                              <p class="mb-0">
+                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna
+                                 bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit.
+                                 Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus
+                                 risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                              </p>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-         </section>
-      </main>
+         </div>
+      </section>
+   </main>
 
-  <div th:replace="fragments/header :: footer"> </div> 
-  <div th:replace="fragments/header :: body-scripts"> </div>
-   
-   </body>
+   <div th:replace="fragments/header :: footer"></div>
+   <div th:replace="fragments/header :: body-scripts"></div>
+
+   <!-- JS for Quantity Buttons -->
+   <script>
+      document.addEventListener('DOMContentLoaded', function () {
+         const minusButtons = document.querySelectorAll('.button-minus');
+         const plusButtons = document.querySelectorAll('.button-plus');
+
+         minusButtons.forEach((btn) => {
+            btn.addEventListener('click', function () {
+               const input = btn.parentElement.querySelector('.quantity-field');
+               let currentValue = parseInt(input.value);
+               if (!isNaN(currentValue) && currentValue > parseInt(input.min)) {
+                  input.value = currentValue - 1;
+               }
+            });
+         });
+
+         plusButtons.forEach((btn) => {
+            btn.addEventListener('click', function () {
+               const input = btn.parentElement.querySelector('.quantity-field');
+               let currentValue = parseInt(input.value);
+               if (!isNaN(currentValue) && currentValue < parseInt(input.max)) {
+                  input.value = currentValue + 1;
+               }
+            });
+         });
+      });
+   </script>
+</body>
+
 </html>

@@ -1,180 +1,181 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org./1999/xhtml">
+
 <head th:replace="fragments/header :: common-header" />
 
 
 <body class="d-flex flex-column">
-  <div th:replace="fragments/header :: navbar"> </div>
-     <main>
-         <section>
-            <!-- container -->
-            <div class="container">
-               <!-- row -->
-               <div class="row">
-                  <!-- col -->
-                  <div class="col-12">
-                     <div class="d-flex justify-content-between align-items-center d-md-none py-4">
-                        <!-- heading -->
-                        <h3 class="fs-5 mb-0">Account Setting</h3>
-                        <!-- button -->
-                        <button
-                           class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
-                           type="button"
-                           data-bs-toggle="offcanvas"
-                           data-bs-target="#offcanvasAccount"
-                           aria-controls="offcanvasAccount">
-                           <i class="bi bi-text-indent-left fs-3"></i>
-                        </button>
-                     </div>
+   <div th:replace="fragments/header :: navbar"> </div>
+   <main>
+      <section>
+         <!-- container -->
+         <div class="container">
+            <!-- row -->
+            <div class="row">
+               <!-- col -->
+               <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center d-md-none py-4">
+                     <!-- heading -->
+                     <h3 class="fs-5 mb-0">Account Setting</h3>
+                     <!-- button -->
+                     <button class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount" aria-controls="offcanvasAccount">
+                        <i class="bi bi-text-indent-left fs-3"></i>
+                     </button>
                   </div>
-                  <!-- col -->
-                  <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
-                     <div class="pt-10 pe-lg-10">
+               </div>
+               <!-- col -->
+               <div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+                  <div class="pt-10 pe-lg-10">
+                     <!-- nav item -->
+                     <ul class="nav flex-column nav-pills nav-pills-dark">
+                        <li class="nav-item">
+                           <a class="nav-link" aria-current="page" th:href="@{/my-orders}">
+                              <i class="feather-icon icon-shopping-bag me-2"></i>
+                              Your Orders
+                           </a>
+                        </li>
                         <!-- nav item -->
-                        <ul class="nav flex-column nav-pills nav-pills-dark">
-                           <li class="nav-item">
-                              <a class="nav-link" aria-current="page" th:href="@{/my-orders}" >
-                                 <i class="feather-icon icon-shopping-bag me-2"></i>
-                                 Your Orders
-                              </a>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <a class="nav-link active" th:href="@{/my-profile}">
-                                 <i class="feather-icon icon-settings me-2"></i>
-                                 Settings
-                              </a>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <a class="nav-link" th:href="@{/my-address}">
-                                 <i class="feather-icon icon-map-pin me-2"></i>
-                                 Address
-                              </a>
-                           </li>                       
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <hr />
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <a class="nav-link" th:href="@{/logout}">
-                                 <i class="feather-icon icon-log-out me-2"></i>
-                                 Log out
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
+                        <li class="nav-item">
+                           <a class="nav-link active" th:href="@{/my-profile}">
+                              <i class="feather-icon icon-settings me-2"></i>
+                              Settings
+                           </a>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                           <a class="nav-link" th:href="@{/my-address}">
+                              <i class="feather-icon icon-map-pin me-2"></i>
+                              Address
+                           </a>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                           <hr />
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                           <a class="nav-link" th:href="@{/logout}">
+                              <i class="feather-icon icon-log-out me-2"></i>
+                              Log out
+                           </a>
+                        </li>
+                     </ul>
                   </div>
-                  <div class="col-lg-9 col-md-8 col-12">
-                     <div class="py-6 p-md-6 p-lg-10">
-                        <div class="mb-6">
-                           <!-- heading -->
-                           <h2 class="mb-0">Account Setting</h2>
-                        </div>
-                        <div>
-                           <!-- heading -->
-                           <h5 class="mb-4">Account details</h5>
-                           <div class="row">
-                              <div class="col-lg-5">
-                                 <!-- form -->
-                                 <form th:action="@{/update-user-info}" novalidate method="post">
-                                    <!-- input -->
-                                    <div class="mb-3">
-                                       <label class="form-label">First Name</label>
-                                       <input type="text" class="form-control" 
-                                         id="firstName" name="firstName" th:value="${user.firstName}">  
-                                    </div>
-                                    <div class="mb-3">
-                                       <label class="form-label">Last Name</label>
-                                      <input type="text" class="form-control" 
-                                          id="lastName" name="lastName" th:value="${user.lastName}"> 
-                                    </div>
-                                    <div class="mb-3">
-                                       <label class="form-label">Username</label>
-                                      <input required="required" type="text" class="form-control" th:classappend="${usernameExists} ? is-invalid"
-                                    id="userName" name="username" th:value="${user.username}">
-                                       <div class="invalid-feedback">Username already in use. Choose another one.</div>
-                                    </div>
-                                    <!-- input -->
-                                    <div class="mb-3">
-                                       <label class="form-label">Email</label>
-                                         <input required="required" type="text" class="form-control" th:classappend="${emailExists} ? is-invalid"
-                                      id="email" name="email" th:value="${user.email}">
-                                  <div class="invalid-feedback">Email already used by an existing account.</div>
-                                    </div>
-                                  <div class="mb-3 col">
-                                        <label class="form-label">New Password</label>
-                                        <input type="password" class="form-control" 
-                                                id="txtNewPassword" name="newPassword" autocomplete="new-password">
-                                        </div>
+               </div>
+               <div class="col-lg-9 col-md-8 col-12">
+                  <div class="py-6 p-md-6 p-lg-10">
+                     <div class="mb-6">
+                        <!-- heading -->
+                        <h2 class="mb-0">Account Setting</h2>
+                     </div>
+                     <div>
+                        <!-- heading -->
+                        <h5 class="mb-4">Account details</h5>
+                        <div class="row">
+                           <div class="col-lg-5">
+                              <!-- form -->
+                              <form th:action="@{/update-user-info}" novalidate method="post">
+                                 <!-- input -->
+                                 <div class="mb-3">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName"
+                                       th:value="${user.firstName}">
+                                 </div>
+                                 <div class="mb-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName"
+                                       th:value="${user.lastName}">
+                                 </div>
+                                 <div class="mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input required="required" type="text" class="form-control"
+                                       th:classappend="${usernameExists} ? is-invalid" id="userName" name="username"
+                                       th:value="${user.username}">
+                                    <div class="invalid-feedback">Username already in use. Choose another one.</div>
+                                 </div>
+                                 <!-- input -->
+                                 <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input required="required" type="text" class="form-control"
+                                       th:classappend="${emailExists} ? is-invalid" id="email" name="email"
+                                       th:value="${user.email}">
+                                    <div class="invalid-feedback">Email already used by an existing account.</div>
+                                 </div>
+                                 <div class="mb-3 col">
+                                    <label class="form-label">New Password</label>
+                                    <input type="password" class="form-control" id="txtNewPassword" name="newPassword"
+                                       autocomplete="new-password">
+                                 </div>
 
-                                        <div class="mb-3 col">
-                                        <label class="form-label">Current Password</label>
-                                        <input type="password" class="form-control" 
-                                                id="txtCurrentPassword" name="password" autocomplete="current-password">
-                                        </div>
+                                 <div class="mb-3 col">
+                                    <label class="form-label">Current Password</label>
+                                    <input type="password" class="form-control" id="txtCurrentPassword" name="password"
+                                       autocomplete="current-password">
+                                 </div>
 
-                                    <!-- button -->
-                                    <div class="mb-3">
-                                       <button type="submit" class="btn btn-primary">Save Details</button>
-                                    </div>
-                                 </form>
-                              </div>
+                                 <!-- button -->
+                                 <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary">Save Details</button>
+                                 </div>
+                              </form>
                            </div>
                         </div>
+                     </div>
 
 
-                        <hr class="my-10" />
-                        <div>
-                           <!-- heading -->
-                           <h5 class="mb-4">Delete Account</h5>
-                           <p class="mb-2">Would you like to delete your account?</p>
-                           <p class="mb-5">This account contain 12 orders, Deleting your account will remove all the order details associated with it.</p>
-                           <!-- btn -->
-                           <a href="#" class="btn btn-outline-danger">I want to delete my account</a>
-                        </div>
+                     <hr class="my-10" />
+                     <div>
+                        <!-- heading -->
+                        <h5 class="mb-4">Delete Account</h5>
+                        <p class="mb-2">Would you like to delete your account?</p>
+                        <p class="mb-5">This account contain 12 orders, Deleting your account will remove all the order
+                           details associated with it.</p>
+                        <!-- btn -->
+                        <a href="#" class="btn btn-outline-danger">I want to delete my account</a>
                      </div>
                   </div>
                </div>
             </div>
-         </section>
+         </div>
+      </section>
    </main>
-  <div th:replace="fragments/header :: footer"> </div>   
-  <div th:replace="fragments/header :: body-scripts"> </div>
-   
-  <script>
-  	function checkPasswordMatch() {
-		var password = $("#txtNewPassword").val();
-		var confirmPassword = $("#txtConfirmPassword").val();
-		if (password == "" && confirmPassword == "") {
-			$("#updateUserInfoButton").attr("disabled", false);
-		} else {
-			if (password != confirmPassword) {
-				$("#updateUserInfoButton").attr("disabled", true);				
-				$("#txtConfirmPassword").addClass("is-invalid");
-			} else {
-				$("#updateUserInfoButton").attr("disabled", false);
-				$("#txtConfirmPassword").removeClass("is-invalid");
-			}
-		}		
-	}
-    
-  	$(document).ready(function(){
-  		$("#txtConfirmPassword").keyup(checkPasswordMatch);
-  		$("#txtNewPassword").keyup(checkPasswordMatch);
-    	$('#updateUserInfoButton').click(function() {
-    		console.log("clickeo")
-    		if ($('#txtNewPassword').val() == '') {   
-    			$('#profileForm').submit()    		
-    		} else {
-    			$('#passwordModal').modal('show');
-    		}
-    	 });
-    });
-  	
+   <div th:replace="fragments/header :: footer"> </div>
+   <div th:replace="fragments/header :: body-scripts"> </div>
+
+   <script>
+      function checkPasswordMatch() {
+         var password = $("#txtNewPassword").val();
+         var confirmPassword = $("#txtConfirmPassword").val();
+         if (password == "" && confirmPassword == "") {
+            $("#updateUserInfoButton").attr("disabled", false);
+         } else {
+            if (password != confirmPassword) {
+               $("#updateUserInfoButton").attr("disabled", true);
+               $("#txtConfirmPassword").addClass("is-invalid");
+            } else {
+               $("#updateUserInfoButton").attr("disabled", false);
+               $("#txtConfirmPassword").removeClass("is-invalid");
+            }
+         }
+      }
+
+      $(document).ready(function () {
+         $("#txtConfirmPassword").keyup(checkPasswordMatch);
+         $("#txtNewPassword").keyup(checkPasswordMatch);
+         $('#updateUserInfoButton').click(function () {
+            console.log("clickeo")
+            if ($('#txtNewPassword').val() == '') {
+               $('#profileForm').submit()
+            } else {
+               $('#passwordModal').modal('show');
+            }
+         });
+      });
 
 
-  </script>
+
+   </script>
 </body>
+
 </html>

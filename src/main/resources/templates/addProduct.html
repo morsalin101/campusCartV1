@@ -4,149 +4,154 @@
 <!-- Mirrored from freshcart.codescandy.com/dashboard/add-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Nov 2024 06:10:02 GMT -->
 
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta content="Codescandy" name="author">
-	<title>Add Product Dashboard eCommerce HTML Template - FreshCart</title>
-	<link href="../assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet" />
-	<!-- Favicon icon-->
-	<link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="Codescandy" name="author">
+  <title>Add Product Dashboard eCommerce HTML Template - FreshCart</title>
+  <link href="../assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet" />
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon/favicon.ico">
 
 
-	<!-- Libs CSS -->
-	<link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-	<link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
-	<link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+  <!-- Libs CSS -->
+  <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+  <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
 
 
-	<!-- Theme CSS -->
-	<link rel="stylesheet" href="../assets/css/theme.min.css">
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		gtag("js", new Date());
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="../assets/css/theme.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-		gtag("config", "G-M8S4MT3EYG");
-	</script>
-	<script type="text/javascript">
-		(function (c, l, a, r, i, t, y) {
-			c[a] =
-				c[a] ||
-				function () {
-					(c[a].q = c[a].q || []).push(arguments);
-				};
-			t = l.createElement(r);
-			t.async = 1;
-			t.src = "https://www.clarity.ms/tag/" + i;
-			y = l.getElementsByTagName(r)[0];
-			y.parentNode.insertBefore(t, y);
-		})(window, document, "clarity", "script", "kuc8w5o9nt");
-	</script>
+    gtag("config", "G-M8S4MT3EYG");
+  </script>
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "kuc8w5o9nt");
+  </script>
 
 </head>
 
 <body>
-	<!-- main wrapper -->
-	<!-- navbar -->
-	<div th:replace="fragments/Nav :: admin_nav"></div>
+  <!-- main wrapper -->
+  <!-- navbar -->
+  <div th:replace="fragments/Nav :: admin_nav"></div>
   <form th:action="@{/article/add}" method="post" enctype="multipart/form-data">
-  <div class="main-wrapper">
-<div th:replace="fragments/Sidebar :: sidebar"></div>
-    <main class="main-content-wrapper">
-      <div class="container">
-        <!-- Header -->
-        <div class="row mb-8">
-          <div class="col-md-12 d-md-flex justify-content-between align-items-center">
-            <h2>Add New Product</h2>
-            <a th:href="@{/article/article-list}" class="btn btn-light">Back to Products</a>
+    <div class="main-wrapper">
+      <div th:replace="fragments/Sidebar :: sidebar"></div>
+      <main class="main-content-wrapper">
+        <div class="container">
+          <!-- Header -->
+          <div class="row mb-8">
+            <div class="col-md-12 d-md-flex justify-content-between align-items-center">
+              <h2>Add New Product</h2>
+              <a th:href="@{/article/article-list}" class="btn btn-light">Back to Products</a>
+            </div>
           </div>
-        </div>
 
-       <form th:action="@{/article/add}" method="post" enctype="multipart/form-data">
-  <div class="row">
-    <!-- Left section -->
-    <div class="col-lg-8 col-12">
-      <div class="card mb-6 card-lg">
-        <div class="card-body p-6">
-          <h4 class="mb-4 h5">Product Information</h4>
-          <div class="row">
-            <!-- Title -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Title</label>
-              <input type="text" class="form-control" name="title" placeholder="Product Name" required />
-            </div>
+          <form th:action="@{/article/add}" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <!-- Left section -->
+              <div class="col-lg-8 col-12">
+                <div class="card mb-6 card-lg">
+                  <div class="card-body p-6">
+                    <h4 class="mb-4 h5">Product Information</h4>
+                    <div class="row">
+                      <!-- Title -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Product Name" required />
+                      </div>
 
-            <!-- Category -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Product Category</label>
-              <select class="form-select" name="category" required>
-                <option value="">-- Select Category --</option>
-                <th:block th:each="cat : ${allCategories}">
-                  <option th:value="${cat}" th:id="'cat-' + ${cat}" th:text="${cat}"></option>
-                </th:block>
-              </select>
-            </div>
+                      <!-- Category -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Product Category</label>
+                        <select class="form-select" name="category" required>
+                          <option value="">-- Select Category --</option>
+                          <th:block th:each="cat : ${allCategories}">
+                            <option th:value="${cat}" th:id="'cat-' + ${cat}" th:text="${cat}"></option>
+                          </th:block>
+                        </select>
+                      </div>
 
-            <!-- Stock -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Stock Quantity</label>
-              <input type="number" class="form-control" name="stock" placeholder="Quantity" required />
-            </div>
+                      <!-- Stock -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Stock Quantity</label>
+                        <input type="number" class="form-control" name="stock" placeholder="Quantity" required />
+                      </div>
 
-            <!-- Price -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Price</label>
-              <input type="number" class="form-control" name="price" placeholder="Price" required />
-            </div>
-             
-            <!-- Sizes -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Sizes</label>
-              <input type="text" class="form-control" name="size" placeholder="e.g. S, M, L" data-role="tagsinput" />
-              <div class="mt-2">
-                <button type="button" class="btn btn-primary btn-size" th:each="item : ${#lists.sort(allSizes)}" th:text="${item}" th:id="size+${item}"></button>
+                      <!-- Price -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Price" required />
+                      </div>
+
+                      <!-- Sizes -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Sizes</label>
+                        <input type="text" class="form-control" name="size" placeholder="e.g. S, M, L"
+                          data-role="tagsinput" />
+                        <div class="mt-2">
+                          <button type="button" class="btn btn-primary btn-size"
+                            th:each="item : ${#lists.sort(allSizes)}" th:text="${item}" th:id="size+${item}"></button>
+                        </div>
+                      </div>
+
+                      <!-- Brands -->
+                      <div class="mb-3 col-lg-6">
+                        <label class="form-label">Brands</label>
+                        <input type="text" class="form-control" name="brand" placeholder="e.g. Nike, Adidas"
+                          data-role="tagsinput" />
+                        <div class="mt-2 gap-2 d-flex flex-wrap gap-2">
+                          <button type="button"
+                            class="btn  btn-primary btn-brand badge badge-pill badge-primary mr-1 mb-1"
+                            th:each="item : ${allBrands}" th:text="${#strings.capitalize(item)}"
+                            th:id="brand+${item}"></button>
+                        </div>
+                      </div>
+
+                      <!-- Picture (Image Link or File Upload) -->
+                      <div class="mb-3 col-lg-12 mt-4">
+                        <label class="form-label">Upload Product Image</label>
+                        <input type="file" class="form-control" name="pictureFile" accept="image/*" required />
+                      </div>
+
+                      <!-- Submit -->
+                      <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Create Product</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <!-- Brands -->
-            <div class="mb-3 col-lg-6">
-              <label class="form-label">Brands</label>
-              <input type="text" class="form-control" name="brand" placeholder="e.g. Nike, Adidas" data-role="tagsinput" />
-              <div class="mt-2">  
-                <button type="button" class="btn btn-primary btn-brand badge badge-pill badge-primary mr-1 mb-1" th:each="item : ${allBrands}" 
-                th:text="${#strings.capitalize(item)}" th:id="brand+${item}"></button>
-              </div>
-            </div>
+          </form>
 
-            <!-- Picture (Image Link or File Upload) -->
-            <div class="mb-3 col-lg-12 mt-4">
-              <label class="form-label">Upload Product Image</label>
-              <input type="file" class="form-control" name="pictureFile" accept="image/*" required />
-            </div>
 
-            <!-- Submit -->
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary">Create Product</button>
-            </div>
-
-          </div>
         </div>
-      </div>
+      </main>
     </div>
-  </div>
-      </form>
+  </form>
 
-
-      </div>
-    </main>
-  </div>
-</form>
-
-	<!-- Libs JS -->
+  <!-- Libs JS -->
   <div th:replace="fragments/Script :: script"></div>
 </body>
 
