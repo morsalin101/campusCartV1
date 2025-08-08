@@ -1,22 +1,47 @@
 package com.nico.store.store.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nico.store.store.domain.Order;
 import com.nico.store.store.service.OrderService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/orders")
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.*;
+
+@RestController
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
- @GetMapping("/order-list")
-public String getAllOrders(Model model) {
- model.addAttribute("orders", orderService.findAll());
- return "order-list"; // Update this to your Thymeleaf page for listing all orders
-}
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @GetMapping("/article/allorders")
+    public ResponseEntity<List<Order>> allOrders() {
+        List<Order> orders = orderService.findAll();
+        return ResponseEntity.ok(orders);
+    }
+    @PostMapping("/article/orders/{id}/status")
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable Long id,
+                                                  @RequestBody String statusJson) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(statusJson);
+            String status = node.get("orderStatus").asText();
+
+            boolean updated = orderService.updateOrderStatus(id, status);
+            if (updated) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

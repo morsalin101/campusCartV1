@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -83,6 +84,18 @@ public List<Order> findAll() {
     orderRepository.findAll().forEach(orders::add);
     return orders;
 }
+
+    public boolean updateOrderStatus(Long id, String newStatus) {
+        Optional<Order> orderOpt = orderRepository.findById(id);
+        if (orderOpt.isPresent()) {
+            Order order = orderOpt.get();
+            order.setOrderStatus(newStatus);
+            orderRepository.save(order);
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

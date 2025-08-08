@@ -116,7 +116,10 @@ public String customerList(Model model) {
 	return "customers";
 }
 
-
+@GetMapping("/order-list")
+public String orderList(Model model) {
+		return "order-list";
+}
 		
 // @GetMapping("/order-details")
 // public String getOrderDetails(@RequestParam("id") Long orderId, Model model) {
