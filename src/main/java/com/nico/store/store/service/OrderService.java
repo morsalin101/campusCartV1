@@ -17,5 +17,4 @@ public interface OrderService {
 	Order findOrderWithDetails(Long id);
 
 	List<Order> findAll();
-
 }

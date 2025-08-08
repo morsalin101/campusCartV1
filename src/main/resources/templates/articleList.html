@@ -11,56 +11,41 @@
   <link href="../assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="../assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
   <link href="../assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/theme.min.css">
 
-  <style>
-    #editFormContainer {
-      top: 20px;
-      max-width: 600px;
-      z-index: 1050;
+  <link rel="stylesheet" href="../assets/css/theme.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8S4MT3EYG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
     }
-  </style>
+    gtag("js", new Date());
+
+    gtag("config", "G-M8S4MT3EYG");
+  </script>
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "kuc8w5o9nt");
+  </script>
+
 </head>
 
 <body>
   <div th:replace="fragments/Nav :: admin_nav"></div>
-
   <div class="main-wrapper">
     <div th:replace="fragments/Sidebar :: sidebar"></div>
-
     <main class="main-content-wrapper">
       <div class="container">
-
-        <!-- Edit Form -->
-        <div id="editFormContainer" class="card shadow-sm position-fixed start-50 translate-middle-x mt-3 d-none">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Edit Product</h5>
-            <form th:action="@{/article/update}" method="post" id="editForm" enctype="multipart/form-data"
-              class="row g-3">
-              <input type="hidden" id="editId" name="id" />
-              <div class="col-12">
-                <label for="editTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="editTitle" name="title" required />
-              </div>
-              <div class="col-md-6">
-                <label for="editPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" id="editPrice" name="price" required />
-              </div>
-              <div class="col-md-6">
-                <label for="editStock" class="form-label">Stock</label>
-                <input type="number" class="form-control" id="editStock" name="stock" required />
-              </div>
-              <!-- Add other fields like category, brand, size if necessary -->
-
-              <div class="col-12 text-end">
-                <button type="submit" class="btn btn-success me-2">Save</button>
-                <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Header -->
         <div class="row mb-8">
           <div class="col-md-12 d-md-flex justify-content-between align-items-center">
             <h2>Product List</h2>
@@ -68,7 +53,6 @@
           </div>
         </div>
 
-        <!-- Product Table -->
         <div class="row">
           <div class="col-xl-12 col-12 mb-5">
             <div class="card h-100 card-lg">
@@ -91,37 +75,29 @@
                       <td th:text="${article.title}"></td>
                       <td>
                         <div class="d-flex flex-wrap">
-                          <span th:each="item : ${article.categories}" th:text="${item.name}"
+                          <span th:each="item : ${article.categories}" th:text="${item.getName()}"
                             class="badge bg-light-primary text-primary-emphasis m-1"></span>
                         </div>
                       </td>
                       <td>
                         <div class="d-flex flex-wrap">
-                          <span th:each="item : ${article.brands}" th:text="${item.name}"
+                          <span th:each="item : ${article.brands}" th:text="${item.getName()}"
                             class="badge bg-light-info text-info-emphasis m-1"></span>
                         </div>
                       </td>
                       <td>
                         <div class="d-flex flex-wrap">
-                          <span th:each="item : ${article.sizes}" th:text="${item.value}"
+                          <span th:each="item : ${article.sizes}" th:text="${item.getValue()}"
                             class="badge bg-light-secondary text-secondary-emphasis m-1"></span>
                         </div>
                       </td>
                       <td th:text="'$' + ${article.price}"></td>
                       <td th:text="${article.stock}"></td>
                       <td>
-                        <!-- Edit Button -->
-                        <button class="btn btn-sm btn-outline-primary me-1" type="button" th:data-id="${article.id}"
-                          th:data-title="${article.title}" th:data-price="${article.price}"
-                          th:data-stock="${article.stock}" onclick="showEditForm(this)">Edit</button>
-
-                        <!-- Delete Button -->
+                        <a th:href="@{/article/edit(id=${article.id})}" class="btn btn-sm btn-outline-primary">EDIT</a>
                         <a th:href="@{/article/delete(id=${article.id})}"
-                          class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                          class="btn btn-sm btn-outline-danger ms-2">DELETE</a>
                       </td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(articles)}">
-                      <td colspan="7" class="text-center">No products available.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -129,7 +105,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </main>
   </div>
@@ -143,24 +118,8 @@
         "responsive": true
       });
     });
-
-    function showEditForm(button) {
-      const form = document.getElementById('editFormContainer');
-      document.getElementById('editId').value = button.getAttribute('data-id');
-      document.getElementById('editTitle').value = button.getAttribute('data-title');
-      document.getElementById('editPrice').value = button.getAttribute('data-price');
-      document.getElementById('editStock').value = button.getAttribute('data-stock');
-
-      form.classList.remove('d-none');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function hideEditForm() {
-      const form = document.getElementById('editFormContainer');
-      form.classList.add('d-none');
-      document.getElementById('editForm').reset();
-    }
   </script>
+
 </body>
 
 </html>
