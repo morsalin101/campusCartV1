@@ -83,6 +83,12 @@ public List<Order> findAll() {
     orderRepository.findAll().forEach(orders::add);
     return orders;
 }
+
+   @Override
+   public boolean updateOrderStatus(Long id, String status) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'updateOrderStatus'");
+   }
    
 
 }

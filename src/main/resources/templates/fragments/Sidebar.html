@@ -68,13 +68,13 @@
 								data-bs-parent="#sideNavbar">
 								<ul class="nav flex-column">
 									<li class="nav-item">
-										<a class="nav-link" th:href="@{/orders/order-details}"
-											th:classappend="${#httpServletRequest.requestURI.contains('/orders/order-details')} ? ' active'">List</a>
+										<a class="nav-link" th:href="@{/article/order-list}"
+											th:classappend="${#httpServletRequest.requestURI.contains('/article/order-list')} ? ' active'">List</a>
 									</li>
-									<li class="nav-item">
+									<!-- <li class="nav-item">
 										<a class="nav-link" th:href="@{/orders/order-single}"
 											th:classappend="${#httpServletRequest.requestURI.contains('/orders/order-single')} ? ' active'">Single</a>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</li>
