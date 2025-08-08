@@ -13,7 +13,7 @@
         <div class="col-lg-3 col-md-4">
           <div class="accordion accordion-caret accordion-sidebar d-none d-md-block">
 
-            <div class="card">
+            <div class="card mb-3 mt-3">
               <div class="card-header">
                 <a href="#filter-categories" data-toggle="collapse" class="h6" aria-expanded="true">CATEGORIES</a>
               </div>
@@ -35,17 +35,20 @@
               </div>
               <div id="filter-price" class="collapse show">
                 <div class="card-body">
+                  <p>Low - High Price</p>
                   <div class="d-flex justify-content-between">
-                    <input type="text" class="form-control form-control-sm rounded-pill text-center bg-light mr-2"
-                      name="pricelow" th:value="${param.pricelow}">
-                    <input type="text" class="form-control form-control-sm rounded-pill text-center bg-light ml-2"
-                      name="pricehigh" th:value="${param.pricehigh}">
+                    <input type="text" class="form-control form-control-sm text-center bg-light me-2" name="pricelow"
+                      placeholder="Min Price" th:value="${param.pricelow}">
+
+                    <input type="text" class="form-control form-control-sm  text-center bg-light ms-2" name="pricehigh"
+                      placeholder="Max Price" th:value="${param.pricehigh}">
                   </div>
+
                 </div>
               </div>
             </div>
 
-            <div class="card">
+            <div class="card mt-3">
               <div class="card-header">
                 <a href="#filter-size" data-toggle="collapse" class="h6" aria-expanded="true">SIZE</a>
               </div>
@@ -60,7 +63,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <div class="card mt-3">
               <div class="card-header">
                 <a href="#filter-brands" data-toggle="collapse" class="h6" aria-expanded="true">BRANDS</a>
               </div>
@@ -75,67 +78,82 @@
               </div>
             </div>
 
-            <div class="card">
-              <div class="card-header px-5 py-2 text-center">
-                <button type="submit" class="btn btn-primary rounded-pill btn-block btn-sm">APPLY</button>
-              </div>
+            <div class="mt-3">
+              <button type="submit" class="px-6 py-2 btn btn-primary rounded-pill btn-sm">
+                APPLY
+              </button>
             </div>
+
           </div>
         </div>
 
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-9 col-md-8 mt-3">
 
-          <div class="card mb-3">
-            <div class="row card-body d-flex justify-content-between align-items-start py-2">
-              <div class="col-8 col-md-7 col-lg-6">
+          <!-- Filter + Search + Sort Section -->
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body row align-items-center py-2 g-2">
+
+              <!-- Filter Button (Mobile Only) + Search -->
+              <div class="col-12 col-md-7 col-lg-6">
                 <button type="button" class="btn btn-sm btn-outline-primary rounded-pill d-block d-md-none mb-2"
-                  data-toggle="modal" data-target="#filterModal">
-                  <i data-feather="filter"></i> Filter</button>
-                <div class="input-group input-group-search input-group-sm mb-2">
-                  <input type="text" class="form-control border-0 bg-light input-search" placeholder="Search..."
-                    name="search" th:value="${filters.search}">
-                  <div class="input-group-append">
-                    <button class="btn btn-light" type="submit"><i data-feather="search"></i></button>
-                  </div>
+                  data-bs-toggle="modal" data-bs-target="#filterModal">
+                  <i data-feather="filter" class="me-1"></i> Filter
+                </button>
+
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control bg-light border-0" placeholder="Search..." name="search"
+                    th:value="${filters.search}">
+                  <button class="btn btn-outline-secondary border-0 bg-light" type="submit">
+                    <i data-feather="search"></i>
+                  </button>
                 </div>
               </div>
 
-              <div class="btn-group ml-3">
-                <button type="button" class="btn btn-light btn-sm border rounded-pill" data-toggle="dropdown">
-                  <th:block th:switch="${filters.sort}">
-                    <span id="dropdown-sort-text" th:case="'priceasc'">Low - High Price</span>
-                    <span id="dropdown-sort-text" th:case="'pricedesc'">High - Low Price</span>
-                    <span id="dropdown-sort-text" th:case="'alphasc'">A - Z Order</span>
-                    <span id="dropdown-sort-text" th:case="'alphdesc'">Z - A Order</span>
-                    <span id="dropdown-sort-text" th:case="*">Newest</span>
-                  </th:block>
-                  <i data-feather="chevron-down"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right shadow-sm">
-                  <button class="dropdown-item button-sort" type="button" value="newest">Newest</button>
-                  <button class="dropdown-item button-sort" type="button" value="priceasc">Low - High Price</button>
-                  <button class="dropdown-item button-sort" type="button" value="pricedesc">High - Low Price</button>
-                  <button class="dropdown-item button-sort" type="button" value="alphasc">A - Z Order</button>
-                  <button class="dropdown-item button-sort" type="button" value="alphdesc">Z - A Order</button>
+              <!-- Sort Dropdown -->
+              <div class="col-12 col-md-5 col-lg-6 text-md-end">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-light btn-sm rounded-md dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <th:block th:switch="${filters.sort}">
+                      <span th:case="'priceasc'">Low - High Price</span>
+                      <span th:case="'pricedesc'">High - Low Price</span>
+                      <span th:case="'alphasc'">A - Z Order</span>
+                      <span th:case="'alphdesc'">Z - A Order</span>
+                      <span th:case="*">Newest</span>
+                    </th:block>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><button class="dropdown-item button-sort" type="button" value="newest">Newest</button></li>
+                    <li><button class="dropdown-item button-sort" type="button" value="priceasc">Low - High
+                        Price</button></li>
+                    <li><button class="dropdown-item button-sort" type="button" value="pricedesc">High - Low
+                        Price</button></li>
+                    <li><button class="dropdown-item button-sort" type="button" value="alphasc">A - Z Order</button>
+                    </li>
+                    <li><button class="dropdown-item button-sort" type="button" value="alphdesc">Z - A Order</button>
+                    </li>
+                  </ul>
                 </div>
+                <input id="input-sort" hidden type="text" name="sort" th:value="${filters.sort}">
               </div>
-              <input id="input-sort" hidden type="text" name="sort" th:value="${filters.sort}">
             </div>
           </div>
 
-          <div class="row row-cols-2 row-cols-lg-3 g-3 mb-3">
+          <!-- Product Grid -->
+          <div class="row row-cols-2 row-cols-md-3 g-4 mb-4">
             <div class="col" th:each="article : ${articles}">
-              <div class="card border-light h-100 shadow-sm">
+              <div class="card h-100 border shadow-sm">
                 <a th:href="@{/article-detail(id=${article.id})}">
-                  <img class="card-img-top p-2" th:src="@{'/products/' + ${article.picture}}"
+                  <img class="card-img-top p-3 rounded" th:src="@{'/products/' + ${article.picture}}"
                     onerror="this.onerror=null;this.src='/image/article/itemexample.jpg';" alt="Product Image">
                 </a>
-                <div class="card-body text-center">
-                  <h6 class="card-title mb-2">
-                    <a class="text-dark" th:href="@{/article-detail(id=${article.id})}" th:text="${article.title}"></a>
+                <div class="card-body text-center px-3">
+                  <h6 class="card-title fw-semibold mb-2">
+                    <a class="text-dark text-decoration-none" th:href="@{/article-detail(id=${article.id})}"
+                      th:text="${article.title}"></a>
                   </h6>
                   <div class="price">
-                    <span class="h6 text-primary font-weight-bold"
+                    <span class="h6 text-primary fw-bold"
                       th:text="'$' + ${#numbers.formatDecimal(article.price, 0, T(Math).round(article.price) == article.price ? 0 : 2)}"></span>
                   </div>
                 </div>
@@ -143,13 +161,15 @@
             </div>
           </div>
 
-          <div class="card">
+          <!-- Pagination -->
+          <div class="card border-0 shadow-sm">
             <div class="card-body d-flex justify-content-center">
               <div id="light-pagination"></div>
             </div>
           </div>
 
         </div>
+
       </div>
     </div>
 
