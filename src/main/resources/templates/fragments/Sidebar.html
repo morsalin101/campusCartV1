@@ -6,91 +6,108 @@
 		<nav class="navbar-vertical-nav d-none d-xl-block">
 			<div class="navbar-vertical">
 				<div class="px-4 py-5">
-					<a href="../index.html" class="navbar-brand">
-						<img th:src="@{/images/logo/freshcart.png}" alt="eCommerce HTML Template"
-							style="height: 78px; width: auto; object-fit: contain;" />
+					<a th:href="@{/}" class="navbar-brand">
+						<img th:src="@{/images/logo/freshCart.jpg}" alt="eCommerce HTML Template"
+							style="height:48px; max-width:180px; width:auto; object-fit:contain; display:block; margin-left:0;" />
 					</a>
 				</div>
 				<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
 					<ul class="navbar-nav flex-column" id="sideNavbar">
+
 						<li class="nav-item">
-							<a class="nav-link  active " href="index.html">
+							<a class="nav-link" th:href="@{/article/article-list}"
+								th:classappend="${#httpServletRequest.requestURI.contains('/article/article-list')} ? ' active'"
+								style="background-color: #313c58; color: #fff;">
 								<div class="d-flex align-items-center">
-									<span class="nav-link-icon"><i class="bi bi-house"></i></span>
-									<span class="nav-link-text">Dashboard</span>
+									<span class="nav-link-icon" style="color: #57d66aea;"><i
+											class="bi bi-house"></i></span>
+									<span class="nav-link-text" style="font-weight: bold;">Dashboard</span>
 								</div>
 							</a>
 						</li>
+
 						<li class="nav-item mt-6 mb-3">
 							<span class="nav-label">Store Managements</span>
 						</li>
+
+						<!-- Add Product -->
 						<li class="nav-item">
-							<a class="nav-link " th:href="@{/article/add}">
+							<a class="nav-link" th:href="@{/article/add}"
+								th:classappend="${#httpServletRequest.requestURI.contains('/article/add')} ? ' active'">
 								<div class="d-flex align-items-center">
 									<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
 									<span class="nav-link-text">Add Product</span>
 								</div>
 							</a>
 						</li>
+
+						<!-- Categories -->
 						<li class="nav-item">
-							<a class="nav-link " th:href="@{/category/list}">
+							<a class="nav-link" th:href="@{/category/list}"
+								th:classappend="${#httpServletRequest.requestURI.contains('/category/list')} ? ' active'">
 								<div class="d-flex align-items-center">
 									<span class="nav-link-icon"><i class="bi bi-list-task"></i></span>
 									<span class="nav-link-text">Categories</span>
 								</div>
 							</a>
 						</li>
+
+						<!-- Orders -->
 						<li class="nav-item">
-							<a class="nav-link  collapsed " href="#" data-bs-toggle="collapse"
+							<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 								data-bs-target="#navCategoriesOrders" aria-expanded="false"
-								aria-controls="navCategoriesOrders">
+								aria-controls="navCategoriesOrders"
+								th:classappend="${#httpServletRequest.requestURI.contains('/orders')} ? ' active'">
 								<div class="d-flex align-items-center">
 									<span class="nav-link-icon"><i class="bi bi-bag"></i></span>
 									<span class="nav-link-text">Orders</span>
 								</div>
 							</a>
-							<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
+							<div id="navCategoriesOrders" class="collapse"
+								th:classappend="${#httpServletRequest.requestURI.contains('/orders')} ? ' show'"
+								data-bs-parent="#sideNavbar">
 								<ul class="nav flex-column">
 									<li class="nav-item">
-										<a class="nav-link " th:href="@{/orders/order-details}">List</a>
+										<a class="nav-link" th:href="@{/orders/order-details}"
+											th:classappend="${#httpServletRequest.requestURI.contains('/orders/order-details')} ? ' active'">List</a>
 									</li>
-									<!-- Nav item -->
 									<li class="nav-item">
-										<a class="nav-link " th:href="@{/orders/order-single}">Single</a>
+										<a class="nav-link" th:href="@{/orders/order-single}"
+											th:classappend="${#httpServletRequest.requestURI.contains('/orders/order-single')} ? ' active'">Single</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 
-
+						<!-- Customers -->
 						<li class="nav-item">
-							<a class="nav-link  collapsed " href="#" data-bs-toggle="collapse"
-								data-bs-target="#navCustomer" aria-expanded="false" aria-controls="navCustomer">
+							<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+								data-bs-target="#navCustomer" aria-expanded="false" aria-controls="navCustomer"
+								th:classappend="${#httpServletRequest.requestURI.contains('/article/customers')} ? ' active'">
 								<div class="d-flex align-items-center">
 									<span class="nav-link-icon"><i class="bi bi-people"></i></span>
 									<span class="nav-link-text">Customers</span>
 									<span class="badge bg-light-success text-dark-success ms-2">New</span>
 								</div>
 							</a>
-							<div id="navCustomer" class="collapse " data-bs-parent="#sideNavbar">
+							<div id="navCustomer" class="collapse"
+								th:classappend="${#httpServletRequest.requestURI.contains('/article/customers')} ? ' show'"
+								data-bs-parent="#sideNavbar">
 								<ul class="nav flex-column">
 									<li class="nav-item">
-										<a class="nav-link " th:href="@{/article/customers}">Customers</a>
+										<a class="nav-link" th:href="@{/article/customers}"
+											th:classappend="${#httpServletRequest.requestURI.contains('/article/customers')} ? ' active'">
+											Customers
+										</a>
 									</li>
-									<!-- Nav item -->
-									<!-- <li class="nav-item">
-										<a class="nav-link " href="create-customers.html">Create Customers</a>
-									</li> -->
-									<!-- Nav item -->
-									<!-- <li class="nav-item">
-										<a class="nav-link " href="customers-edits.html">Edit Customers</a>
-									</li> -->m
 								</ul>
 							</div>
 						</li>
 
+						<!-- Vendors -->
 						<li class="nav-item">
-							<a class="nav-link " href="vendor-grid.html">
+							<a class="nav-link" th:href="@{/vendor-grid}"
+								th:classappend="${#httpServletRequest.requestURI.contains('/vendor-grid')} ? ' active'">
 								<div class="d-flex align-items-center">
 									<span class="nav-link-icon"><i class="bi bi-shop"></i></span>
 									<span class="nav-link-text">Sellers / Vendors</span>

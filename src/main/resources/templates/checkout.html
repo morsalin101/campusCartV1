@@ -64,9 +64,9 @@
                     </div>
                   </div>
                   <div class="d-flex flex-wrap justify-content-between align-items-center mt-3">
-                    <a th:href="@{/shopping-cart/cart}" class="btn btn-info rounded-pill"><i
+                    <a th:href="@{/shopping-cart/cart}" class="btn btn-info rounded-sm py-2 px-4"><i
                         data-feather="arrow-left"></i> Edit cart</a>
-                    <a data-toggle="collapse" data-parent="#accordion" class="btn btn-primary rounded-pill"
+                    <a data-toggle="collapse" data-parent="#accordion" class="btn btn-primary rounded-sm py-2 px-4"
                       href="#collapseTwo">Next <i data-feather="arrow-right"></i></a>
                   </div>
                 </div>
@@ -108,7 +108,7 @@
                     </div>
                   </div>
                   <div class="mt-2 text-right">
-                    <a data-toggle="collapse" data-parent="#accordion" class="btn btn-primary rounded-pill"
+                    <a data-toggle="collapse" data-parent="#accordion" class="btn btn-primary rounded-sm py-2 px-4"
                       href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
                   </div>
                 </div>
@@ -138,7 +138,7 @@
                     <input class="form-check-input" type="radio" name="type" id="bkashOption" value="bkash">
                     <label class="form-check-label" for="bkashOption">
                       <img src="/image/bkash-logo.png" alt="bKash" style="height: 24px; vertical-align: middle;" />
-                      bKash (Send to: <strong>017XXXXXXXX</strong>)
+                      bKash (Send to: <strong>01778106042</strong>)
                     </label>
                   </div>
 
@@ -149,13 +149,6 @@
                       <input type="text" class="form-control" id="transactionId" name="transactionId"
                         placeholder="e.g., TX1234567" />
                     </div>
-                  </div>
-
-                  <div class="mt-2 text-right">
-                    <a data-toggle="collapse" data-parent="#accordion" class="btn btn-primary rounded-pill"
-                      href="#collapseFour">
-                      Next <i data-feather="arrow-right"></i>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -184,7 +177,7 @@
                 <span
                   th:text="'$'+${#numbers.formatDecimal(shoppingCart.getGrandTotal(), 1, 'COMMA', 2, 'POINT')}">$1,200.00</span>
               </div>
-              <button type="submit" class="btn btn-success w-100 py-2">Place your order</button>
+              <button type="submit" class="btn btn-primary  w-100 py-2">Place your order</button>
               <p class="text-muted text-center small mt-2">
                 By placing your order, you agree to Shoepp privacy notice and conditions.
               </p>

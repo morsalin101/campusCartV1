@@ -108,8 +108,9 @@
                         <label class="form-label">Sizes</label>
                         <input type="text" class="form-control" name="size" placeholder="e.g. S, M, L"
                           data-role="tagsinput" />
-                        <div class="mt-2">
-                          <button type="button" class="btn btn-primary btn-size"
+                        <div class="mt-2 gap-2 d-flex flex-wrap gap-2">
+                          <button type="button"
+                            class="btn btn-primary btn-size badge badge-pill badge-primary mr-1 mb-1"
                             th:each="item : ${#lists.sort(allSizes)}" th:text="${item}" th:id="size+${item}"></button>
                         </div>
                       </div>
