@@ -118,17 +118,17 @@ public String customerList(Model model) {
 
 
 		
-@GetMapping("/order-details")
-public String getOrderDetails(@RequestParam("id") Long orderId, Model model) {
-    Order order = orderService.findOrderWithDetails(orderId);
+// @GetMapping("/order-details")
+// public String getOrderDetails(@RequestParam("id") Long orderId, Model model) {
+//     Order order = orderService.findOrderWithDetails(orderId);
 
-    if (order == null) {
-        return "error"; // or redirect with error message
-    }
+//     if (order == null) {
+//         return "error"; // or redirect with error message
+//     }
 
-    model.addAttribute("order", order);
-    return "order-details"; // This is your Thymeleaf page
-}
+//     model.addAttribute("order", order);
+//     return "order-details"; // This is your Thymeleaf page
+// }
 
 	
 	@RequestMapping("/edit")
