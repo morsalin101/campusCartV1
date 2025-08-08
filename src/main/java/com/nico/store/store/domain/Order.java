@@ -17,8 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="user_order")
 public class Order {
@@ -30,8 +28,7 @@ public class Order {
 	private Date shippingDate;
 	private String orderStatus;
 	private BigDecimal orderTotal;
-	
-<<<<<<< HEAD
+
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<CartItem> cartItems;
@@ -39,19 +36,9 @@ public class Order {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Shipping shipping;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-=======
-	@OneToMany(mappedBy="order", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<CartItem> cartItems;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
-	private Shipping shipping;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
->>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 	@JsonIgnore
 	private Payment payment;
 

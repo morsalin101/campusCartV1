@@ -79,21 +79,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
    @Override
-public List<Order> findAll() {
-    List<Order> orders = new ArrayList<>();
-    orderRepository.findAll().forEach(orders::add);
-    return orders;
-}
-
-<<<<<<< HEAD
-   @Override
-   public boolean updateOrderStatus(Long id, String status) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'updateOrderStatus'");
+   public List<Order> findAll() {
+       List<Order> orders = new ArrayList<>();
+       orderRepository.findAll().forEach(orders::add);
+       return orders;
    }
-   
-=======
-    public boolean updateOrderStatus(Long id, String newStatus) {
+
+@Override
+  public boolean updateOrderStatus(Long id, String newStatus) {
         Optional<Order> orderOpt = orderRepository.findById(id);
         if (orderOpt.isPresent()) {
             Order order = orderOpt.get();
@@ -103,8 +96,5 @@ public List<Order> findAll() {
         }
         return false;
     }
-
-
->>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 
 }

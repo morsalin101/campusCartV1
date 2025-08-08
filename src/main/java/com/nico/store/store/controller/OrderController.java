@@ -2,16 +2,14 @@ package com.nico.store.store.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nico.store.store.domain.Order;
 import com.nico.store.store.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.*;
-
 @RestController
+@RequestMapping("/api") 
 public class OrderController {
 
     private final OrderService orderService;
@@ -21,10 +19,11 @@ public class OrderController {
     }
 
     @GetMapping("/article/allorders")
-    public ResponseEntity<List<Order>> allOrders() {
-        List<Order> orders = orderService.findAll();
+    public ResponseEntity<List<com.nico.store.store.domain.Order>> allOrders() {
+        List<com.nico.store.store.domain.Order> orders = orderService.findAll();
         return ResponseEntity.ok(orders);
     }
+
     @PostMapping("/article/orders/{id}/status")
     public ResponseEntity<Void> updateOrderStatus(@PathVariable Long id,
                                                   @RequestBody String statusJson) {
@@ -43,11 +42,4 @@ public class OrderController {
             return ResponseEntity.badRequest().build();
         }
     }
-<<<<<<< HEAD
-   }
-
-
-=======
-
 }
->>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e

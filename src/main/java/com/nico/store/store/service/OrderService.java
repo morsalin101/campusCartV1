@@ -17,11 +17,5 @@ public interface OrderService {
 	Order findOrderWithDetails(Long id);
 
 	List<Order> findAll();
-<<<<<<< HEAD
-
- boolean updateOrderStatus(Long id, String status);
-
-=======
     boolean updateOrderStatus(Long id,String status);
->>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 }
