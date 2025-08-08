@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -84,11 +85,26 @@ public List<Order> findAll() {
     return orders;
 }
 
+<<<<<<< HEAD
    @Override
    public boolean updateOrderStatus(Long id, String status) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'updateOrderStatus'");
    }
    
+=======
+    public boolean updateOrderStatus(Long id, String newStatus) {
+        Optional<Order> orderOpt = orderRepository.findById(id);
+        if (orderOpt.isPresent()) {
+            Order order = orderOpt.get();
+            order.setOrderStatus(newStatus);
+            orderRepository.save(order);
+            return true;
+        }
+        return false;
+    }
+
+
+>>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 
 }

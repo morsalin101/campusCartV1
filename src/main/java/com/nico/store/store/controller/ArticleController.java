@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nico.store.store.domain.Order;
 import com.nico.store.store.domain.Article;
 import com.nico.store.store.domain.ArticleBuilder;
 import com.nico.store.store.domain.Brand;
 import com.nico.store.store.domain.Category;
 import com.nico.store.store.domain.Size;
+import com.nico.store.store.domain.User;
 import com.nico.store.store.service.ArticleService;
+import com.nico.store.store.service.OrderService;
 import java.nio.file.Path;
 
 @Controller
@@ -30,6 +35,9 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 
+	@Autowired
+	private OrderService orderService;
+	
 	@RequestMapping("/add")
 	public String addArticle(Model model) {
 		Article article = new Article();
@@ -108,10 +116,6 @@ public String customerList(Model model) {
 	return "customers";
 }
 
-@GetMapping("/order-list")
-public String orderList(Model model) {
-		return "order-list";
-}
 
 		
 // @GetMapping("/order-details")

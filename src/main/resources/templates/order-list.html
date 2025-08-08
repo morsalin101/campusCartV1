@@ -58,15 +58,24 @@ Pranto F, [8/8/2025 9:51 PM]
                         <th><input class="form-check-input" type="checkbox" id="checkAll" /></th>
                         <th>Order ID</th>
                         <th>Order Date</th>
+<<<<<<< HEAD
                         <!--                        <th>Customer</th>-->
                         <!--                        <th>Payment Method</th>-->
+=======
+<!--                        <th>Customer</th>-->
+<!--                        <th>Payment Method</th>-->
+>>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
                         <th>Status</th>
                         <th>Amount</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody id="ordersTableBody">
+<<<<<<< HEAD
                       <!-- Orders will be inserted here dynamically -->
+=======
+                    <!-- Orders will be inserted here dynamically -->
+>>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
                     </tbody>
                   </table>
                 </div>
@@ -102,11 +111,18 @@ Pranto F, [8/8/2025 9:51 PM]
               const userName = order.user ? order.user.name : '';
               const paymentMethod = order.payment ? order.payment.method : '';
 
+<<<<<<< HEAD
 
               // Status dropdown HTML with current status selected
               const statusOptions = ['SUCCESS', 'PENDING', 'CANCEL']
                 .map(status => `<option value="${status}" ${order.orderStatus === status ? 'selected' : ''}>${status}</option>`)
                 .join('');
+=======
+              // Status dropdown HTML with current status selected
+              const statusOptions = ['SUCCESS', 'PENDING', 'CANCEL']
+                      .map(status => `<option value="${status}" ${order.orderStatus === status ? 'selected' : ''}>${status}</option>`)
+                      .join('');
+>>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 
               const row = `
               <tr data-order-id="${order.id}">

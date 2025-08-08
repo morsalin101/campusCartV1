@@ -1,5 +1,7 @@
 package com.nico.store.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Order {
 	private String orderStatus;
 	private BigDecimal orderTotal;
 	
+<<<<<<< HEAD
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<CartItem> cartItems;
@@ -38,6 +41,17 @@ public class Order {
 	private Shipping shipping;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+=======
+	@OneToMany(mappedBy="order", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<CartItem> cartItems;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Shipping shipping;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+>>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
 	@JsonIgnore
 	private Payment payment;
 
