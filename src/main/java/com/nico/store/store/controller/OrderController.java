@@ -1,15 +1,15 @@
 package com.nico.store.store.controller;
 
+import com.nico.store.store.dto.OrderDTO;
+import com.nico.store.store.service.OrderService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nico.store.store.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api") 
 public class OrderController {
 
     private final OrderService orderService;
@@ -19,8 +19,8 @@ public class OrderController {
     }
 
     @GetMapping("/article/allorders")
-    public ResponseEntity<List<com.nico.store.store.domain.Order>> allOrders() {
-        List<com.nico.store.store.domain.Order> orders = orderService.findAll();
+    public ResponseEntity<List<OrderDTO>> allOrders() {
+        List<OrderDTO> orders = orderService.findAllWithUsersAndAddress();
         return ResponseEntity.ok(orders);
     }
 

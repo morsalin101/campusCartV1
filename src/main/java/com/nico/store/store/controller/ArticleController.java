@@ -129,7 +129,12 @@ public String customerList(Model model) {
 //     model.addAttribute("order", order);
 //     return "order-details"; // This is your Thymeleaf page
 // }
-
+   
+    @GetMapping("/order-list")
+	public String orderList(Model model) {
+	
+		return "order-list";
+	}
 	
 	@RequestMapping("/edit")
 	public String editArticle(@RequestParam("id") Long id, Model model) {

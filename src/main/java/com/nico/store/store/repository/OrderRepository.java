@@ -3,6 +3,7 @@ package com.nico.store.store.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.nico.store.store.domain.Order;
@@ -14,5 +15,8 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 	
 	@EntityGraph(attributePaths = { "cartItems", "payment", "shipping" })
 	Order findEagerById(Long id);
+ 
+	@Query("SELECT o FROM Order o JOIN FETCH o.user u LEFT JOIN FETCH u.address")
+    List<Order> findAllWithUsersAndAddress();
 
 }

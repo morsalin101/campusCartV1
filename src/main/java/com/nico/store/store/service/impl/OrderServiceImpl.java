@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,6 +20,9 @@ import com.nico.store.store.domain.Payment;
 import com.nico.store.store.domain.Shipping;
 import com.nico.store.store.domain.ShoppingCart;
 import com.nico.store.store.domain.User;
+import com.nico.store.store.dto.AddressDTO;
+import com.nico.store.store.dto.OrderDTO;
+import com.nico.store.store.dto.UserDTO;
 import com.nico.store.store.repository.ArticleRepository;
 import com.nico.store.store.repository.CartItemRepository;
 import com.nico.store.store.repository.OrderRepository;
@@ -95,6 +99,42 @@ public class OrderServiceImpl implements OrderService {
             return true;
         }
         return false;
+    }
+
+      @Override
+    public List<OrderDTO> findAllWithUsersAndAddress() {
+        return orderRepository.findAllWithUsersAndAddress()
+                .stream()
+                .map(order -> {
+                    User user = order.getUser();
+
+                    AddressDTO addressDTO = null;
+                    if (user.getAddress() != null) {
+                        addressDTO = new AddressDTO(
+                            user.getAddress().getStreetAddress(),
+                            user.getAddress().getCity(),
+                            user.getAddress().getCountry(),
+                            user.getAddress().getZipCode()
+                        );
+                    }
+
+                    UserDTO userDTO = new UserDTO();
+                    userDTO.setUsername(user.getUsername());
+                    userDTO.setFirstName(user.getFirstName());
+                    userDTO.setLastName(user.getLastName());
+                    userDTO.setEmail(user.getEmail());
+                    userDTO.setAddress(addressDTO);
+
+                    return new OrderDTO(
+                        order.getId(),
+                        order.getOrderDate(),
+                        order.getShippingDate(),
+                        order.getOrderStatus(),
+                        order.getOrderTotal(),
+                        userDTO
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
 }

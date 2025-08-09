@@ -1,4 +1,4 @@
-Pranto F, [8/8/2025 9:51 PM]
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -58,22 +58,13 @@ Pranto F, [8/8/2025 9:51 PM]
                         <th><input class="form-check-input" type="checkbox" id="checkAll" /></th>
                         <th>Order ID</th>
                         <th>Order Date</th>
-                        <<<<<<< HEAD <!-- <th>Customer</th>-->
-                          <!--                        <th>Payment Method</th>-->
-                          =======
-                          <!--                        <th>Customer</th>-->
-                          <!--                        <th>Payment Method</th>-->
-                          >>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
                           <th>Status</th>
                           <th>Amount</th>
                           <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody id="ordersTableBody">
-                      <<<<<<< HEAD <!-- Orders will be inserted here dynamically -->
-                        =======
-                        <!-- Orders will be inserted here dynamically -->
-                        >>>>>>> f872a8354c26e91c25abb59b16386f917ba1088e
+
                     </tbody>
                   </table>
                 </div>
@@ -88,86 +79,143 @@ Pranto F, [8/8/2025 9:51 PM]
       </div>
     </main>
   </div>
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="orderDetailsContent">
+        Loading...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
   <script src="../assets/js/theme.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function () {
-      function loadOrders() {
-        $.ajax({
-          url: '/article/allorders',
-          method: 'GET',
-          dataType: 'json',
-          success: function (data) {
-            const $tbody = $('#ordersTableBody');
-            $tbody.empty(); // Clear any existing rows
+   $(document).ready(function () {
+  let ordersData = [];
 
-            data.forEach(order => {
-              const orderDate = order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '';
-              const userName = order.user ? order.user.name : '';
-              const paymentMethod = order.payment ? order.payment.method : '';
+  function loadOrders() {
+    $.ajax({
+      url: '/article/allorders',
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        ordersData = data;  // store all order data globally
 
+        const $tbody = $('#ordersTableBody');
+        $tbody.empty(); // Clear any existing rows
 
-              // Status dropdown HTML with current status selected
-              const statusOptions = ['SUCCESS', 'PENDING', 'CANCEL']
-                .map(status => `<option value="${status}" ${order.orderStatus === status ? 'selected' : ''}>${status}</option>`)
-                .join('');
+        data.forEach(order => {
+          const orderDate = order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '';
 
-              const row = `
-              <tr data-order-id="${order.id}">
-                <td><input class="form-check-input" type="checkbox" /></td>
-                <td>${order.id}</td>
-                <td>${orderDate}</td>
+          // Status dropdown HTML with current status selected
+          const statusOptions = ['SUCCESS', 'PENDING', 'CANCEL']
+            .map(status => `<option value="${status}" ${order.orderStatus === status ? 'selected' : ''}>${status}</option>`)
+            .join('');
 
-                <td>
-                  <select class="form-select order-status-dropdown">
-                    ${statusOptions}
-                  </select>
-                </td>
-                <td>${order.orderTotal}</td>
-                <td>
-                  <a href="/orders/${order.id}" class="btn btn-sm btn-primary">View</a>
-                </td>
-              </tr>
-            `;
+          const row = `
+            <tr data-order-id="${order.id}">
+              <td><input class="form-check-input" type="checkbox" /></td>
+              <td>${order.id}</td>
+              <td>${orderDate}</td>
+              <td>
+                <select class="form-select order-status-dropdown">
+                  ${statusOptions}
+                </select>
+              </td>
+              <td>${order.orderTotal}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-primary btn-view-order">View</button>
 
-              $tbody.append(row);
-            });
-          },
-          error: function (xhr, status, error) {
-            console.error('Error fetching orders:', error);
-          }
+              </td>
+            </tr>
+          `;
+
+          $tbody.append(row);
         });
+      },
+      error: function (xhr, status, error) {
+        console.error('Error fetching orders:', error);
       }
-
-      // Initial load
-      loadOrders();
-
-      // Delegate change event for dynamically created dropdowns
-      $('#ordersTableBody').on('change', '.order-status-dropdown', function () {
-        const $select = $(this);
-        const newStatus = $select.val();
-        const orderId = $select.closest('tr').data('order-id');
-
-        $.ajax({
-          url: `/article/orders/${orderId}/status`,
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({ orderStatus: newStatus }),
-          success: function () {
-            alert(`Order #${orderId} status updated to ${newStatus}`);
-          },
-          error: function (xhr, status, error) {
-            alert('Failed to update order status');
-            console.error('Error updating order status:', error);
-            // Optionally revert the dropdown to previous value or reload orders
-            loadOrders();
-          }
-        });
-      });
     });
+  }
+
+  // Initial load
+  loadOrders();
+
+  // Change order status handler (your existing code)
+  $('#ordersTableBody').on('change', '.order-status-dropdown', function () {
+    const $select = $(this);
+    const newStatus = $select.val();
+    const orderId = $select.closest('tr').data('order-id');
+
+    $.ajax({
+      url: `/article/orders/${orderId}/status`,
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ orderStatus: newStatus }),
+      success: function () {
+        alert(`Order #${orderId} status updated to ${newStatus}`);
+      },
+      error: function () {
+        alert('Failed to update order status');
+        loadOrders();
+      }
+    });
+  });
+
+  // View button click: open modal with preloaded data
+  $('#ordersTableBody').on('click', '.btn-view-order', function () {
+    const orderId = $(this).closest('tr').data('order-id');
+    const order = ordersData.find(o => o.id === orderId);
+
+    if (!order) {
+      alert('Order data not found!');
+      return;
+    }
+
+    // Build modal content
+    const orderDate = order.orderDate ? new Date(order.orderDate).toLocaleString() : '';
+    const shippingDate = order.shippingDate ? new Date(order.shippingDate).toLocaleString() : '';
+    const user = order.user || {};
+    const address = user.address || {};
+
+    const html = `
+      <p><strong>Order ID:</strong> ${order.id}</p>
+      <p><strong>Order Date:</strong> ${orderDate}</p>
+      <p><strong>Shipping Date:</strong> ${shippingDate}</p>
+      <p><strong>Status:</strong> ${order.orderStatus}</p>
+      <p><strong>Total Amount:</strong> ${order.orderTotal}</p>
+      <hr />
+      <h5>User Info</h5>
+      <p><strong>Username:</strong> ${user.username || ''}</p>
+      <p><strong>Name:</strong> ${user.firstName || ''} ${user.lastName || ''}</p>
+      <p><strong>Email:</strong> ${user.email || ''}</p>
+      <h5>Address</h5>
+      <p>${address.streetAddress || ''}</p>
+      <p>${address.city || ''}, ${address.country || ''}, ${address.zipCode || ''}</p>
+    `;
+
+    $('#orderDetailsContent').html(html);
+
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+    modal.show();
+  });
+
+});
+loadOrders()
   </script>
 
 </body>

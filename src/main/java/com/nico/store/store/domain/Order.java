@@ -43,7 +43,6 @@ public class Order {
 	private Payment payment;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
 	private User user;
 
 	public Long getId() {
